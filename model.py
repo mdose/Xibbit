@@ -22,17 +22,24 @@ class Artwork(db.Model):
     title = db.Column(db.String(100), nullable=False)
     image_url = db.Column(db.String(500), nullable=False)
     # Find out if there is Datetime Library for BCE and CE dates and circa
+    # Need to store single years, year ranges, need ability to circa
+    # year = integer, year_range = integer, 'circa' = boolean,
+    # year_description = string(null)
     date = db.Column(db.String(30), nullable=False)
     medium = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500), nullable=False)
-    # Find out if there is a measurement Library for numbers
+    # Find out if there is a measurement Library for numbers (thinking ahead to 3.0)
+    # Either dimensions as strings or three integer fields plus 4th unit of meas field
     height = db.Column(db.String(50), nullable=True)
     width = db.Column(db.String(50), nullable=True)
     # depth = db.Column(db.String(50), nullable=True)
     collection_id = db.Column(db.Integer, nullable=False,
                               db.ForeignKey('collections.collection_id'))
     art_type_id = db.Column(db.Integer, nullable=False,
-                              db.ForeignKey('art_types.art_type_id')
+                              db.ForeignKey('art_types.art_type_id'))
+    art_movement_id =
+    art_subject_matter_id =
+
 
     # establishes relationship thanks to the Foreign Key
     collection = db.relationship('Collection', backref='artworks')
@@ -93,23 +100,9 @@ class ArtMovement(db.Model):
     pass
 
 
-class ArtworkArtMovement(db.Model):
-    """Association table for Artworks and ArtMovements"""
-
-    ___tablename__ = "artworks_artmovements"
-
-    pass
-
-
 class SubjectMatter(db.Model):
     """Classification of the artwork within traditional art sphere"""
     """Ex. Portrait, Landscape, Still Life, etc."""
-
-    pass
-
-
-class ArtworkSubjectMatter(db.Model):
-    """Association table for Artworks and Subject Matter"""
 
     pass
 
@@ -120,24 +113,39 @@ class ArtistArtwork(db.Model):
     pass
 
 
-class FavoritedArtwork(db.Model):
+class UserArtwork(db.Model):
     """Association table for Users and Artworks"""
 
+    # list_id (2.0)
     pass
 
 
-class FavoritedArtist(db.Model):
+class UserArtist(db.Model):
     """Association table for Users and Artists"""
 
+    # list_id (2.0)
     pass
 
 
-class FavoritedCollection(db.Model):
+class UserCollection(db.Model):
     """Association table for Users and Collections/Museums"""
 
+    # list_id (2.0)
     pass
 
 
+# class ArtworkArtMovement(db.Model):
+#     """Association table for Artworks and ArtMovements"""
+
+#     ___tablename__ = "artworks_artmovements"
+
+#     pass
+
+
+# class ArtworkSubjectMatter(db.Model):
+#     """Association table for Artworks and Subject Matter"""
+
+#     pass
 
 ########### Version 2.0  ######################################################
 # class Content(db.Model):
