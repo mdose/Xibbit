@@ -46,9 +46,27 @@ class Artwork(db.Model):
 
 
 class Artist(db.Model):
-    """Artist info"""
+    """Artist model"""
 
-    pass
+    ___tablename__ = "artists"
+
+    artist_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+                           nullable=False)
+    # primary_name is the SURNAME of the artist, "Unknown artist", or ONLY
+    # artist name (ex. Myron of Ancient Greece)
+    primary_name = db.Column(db.String(100), nullable=False)
+    # secondary_name is the GIVEN name of the artist
+    secondary_name = db.Column(db.String(100), nullable=True)
+    birth_year = db.Column(db.Integer, nullable=True)
+    death_year = db.Column(db.Integer, nullable=True)
+    bio = db.Column(db.String(500), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
+
+    def __repr__(self):
+        """Info on artists"""
+
+        return "<Artist id: {}, Name: {}, {}, Lifespan: {} - {}, Bio: {}, Image: {}>".format(
+            self.artist_id, self.primary_name, self.secondary_name, self.birth_year, self.death_year, self.bio, self.image_url)
 
 
 class User(db.Model):
