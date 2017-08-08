@@ -17,7 +17,9 @@ class Art(db.Model):
 
     ___tablename__ = "artworks"
 
-    art_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+    art_id = db.Column(db.Integer,
+                       primary_key=True,
+                       autoincrement=True,
                        nullable=False)
     title = db.Column(db.String(100), nullable=False)
     # make images not nullable once you add urls to seed data!!!
@@ -71,7 +73,9 @@ class Artist(db.Model):
 
     ___tablename__ = "artists"
 
-    artist_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+    artist_id = db.Column(db.Integer,
+                          primary_key=True,
+                          autoincrement=True,
                           nullable=False)
     # primary_name is the SURNAME of the artist, "Unknown artist", or ONLY artist name
     primary_name = db.Column(db.String(100), nullable=False)
@@ -96,7 +100,9 @@ class User(db.Model):
 
     ___tablename__ = "users"
 
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+    user_id = db.Column(db.Integer,
+                        primary_key=True,
+                        autoincrement=True,
                         nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
@@ -111,28 +117,78 @@ class User(db.Model):
 
 
 class ArtType(db.Model):
-    """Type of an artwork (ex. painting, sculpture, ceramics, etc.)"""
+    """Type of an artwork (ex. painting, sculpture, ceramics, etc.) Model"""
 
-    pass
+    ___tablename__ = "art_types"
+
+    art_type_id = db.Column(db.Integer,
+                            primary_key=True,
+                            autoincrement=True,
+                            nullable=False)
+    art_type = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        """Info on Art Types"""
+
+        return "<Id: {}, Art Type: {}>".format(self.art_type_id, self.art_type)
 
 
 class Collection(db.Model):
-    """Where the artwork currently live"""
+    """Where the artwork currently lives Model"""
 
-    pass
+    ___tablename__ = "collections"
+
+    collection_id = db.Column(db.Integer,
+                              primary_key=True,
+                              autoincrement=True,
+                              nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        """Info on museum or collection the artwork belongs to"""
+
+        return "<Collection id: {}, Institution name: {}, Location: {}>".format(
+            self.collection_id, self.name, self.location)
 
 
 class ArtMovement(db.Model):
-    """Type of artistic movement(s) the artwork is associated with"""
+    """Primary artistic movement the artwork is associated with Model"""
 
-    pass
+    ___tablename__ = "art_movements"
+
+    art_movement_id = db.Column(db.Integer,
+                                primary_key=True,
+                                autoincrement=True,
+                                nullable=False)
+    movement_name = db.Column(db.String(50), nullable=False)
+    # make descriptions not nullable once you add them to the seed data!!!
+    description = db.Column(db.String(500), nullable=True)
+
+    def __repr__(self):
+        """Info on the different art movements"""
+
+        return "<Art Movement id: {}, Movement name: {}, Description: {}>".format(
+            self.art_movement_id, self.movement_name, self.description)
 
 
 class SubjectMatter(db.Model):
-    """Classification of the artwork within traditional art sphere"""
+    """Primary classification of the artwork within traditional art sphere Model"""
     """Ex. Portrait, Landscape, Still Life, etc."""
 
-    pass
+    ___tablename__ = "subject_matters"
+
+    subject_matter_id = db.Column(db.Integer,
+                                  primary_key=True,
+                                  autoincrement=True,
+                                  nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        """Info on the different traditional art subject matters"""
+
+        return "<Subject Matter id: {}, Category {}>".format(
+            self.subject_matter_id, self.category)
 
 
 class ArtistArtwork(db.Model):
