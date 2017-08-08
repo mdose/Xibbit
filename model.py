@@ -57,13 +57,13 @@ class Art(db.Model):
         """Info on artworks"""
 
         return """
-        <Artwork id: {}, Title: {}, Image: {}, Date: {}, Medium: {}, Description: {},
-        Height {}, Witdh {}, Collection id: {}, ArtType id: {}, ArtMovement: {},
-        SubjectMatter: {}>""".format(self.artwork_id, self.title, self.image_url,
-                                     self.date, self.medium, self.description,
-                                     self.height, self.width, self.collection_id,
-                                     self.art_type_id, self.art_movement_id,
-                                     self.subject_matter_id)
+        <Artwork id: {}, Title: {}, Image: {}, Date: {}{}-{} {}, Medium: {},
+        Description: {}, Height {}, Witdh {}, Collection id: {}, ArtType id: {},
+        ArtMovement: {}, SubjectMatter: {}>
+        """.format(self.artwork_id, self.title, self.image_url, self.circa,
+                   self.year, self.year_range, self.year_description, self.medium,
+                   self.description, self.height_cm, self.width_cm, self.collection_id,
+                   self.art_type_id, self.art_movement_id, self.subject_matter_id)
 
 
 class Artist(db.Model):
@@ -98,15 +98,16 @@ class User(db.Model):
 
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                         nullable=False)
-
     email = db.Column(db.String(100), nullable=False)
-    secondary_name = db.Column(db.String(100), nullable=True)
-    birth_year = db.Column(db.Integer, nullable=True)
-    death_year = db.Column(db.Integer, nullable=True)
-    bio = db.Column(db.String(500), nullable=True)
-    image_url = db.Column(db.String(500), nullable=True)
+    password = db.Column(db.String(100), nullable=False)
+    username = db.Column(db.String(100), nullable=False)
+    # For 2.0 -> image_url = db.Column(db.String(500), nullable=True)
 
-    pass
+    def __repr__(self):
+        """Info on Users"""
+
+        return "<User id: {}, Email: {},  Password: {}, Username: {}>".format(
+            self.user_id, self.email, self.password, self.username)
 
 
 class ArtType(db.Model):
