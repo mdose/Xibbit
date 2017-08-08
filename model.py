@@ -13,9 +13,36 @@ db = SQLAlchemy()
 # Compose ORM
 
 class Artwork(db.Model):
-    """Art info"""
+    """Art model"""
 
     ___tablename__ = "artworks"
+
+    artwork_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
+                           nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    image_url = db.Column(db.String(500), nullable=False)
+    # Find out if there is Datetime Library for BCE and CE dates and circa
+    date = db.Column(db.String(30), nullable=False)
+    medium = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    # Find out if there is a measurement Library for numbers
+    height = db.Column(db.String(50), nullable=True)
+    width = db.Column(db.String(50), nullable=True)
+    # depth = db.Column(db.String(50), nullable=True)
+    collection_id = db.Column(db.Integer, nullable=False,
+                              db.ForeignKey('collections.collection_id'))
+    art_type_id = db.Column(db.Integer, nullable=False,
+                              db.ForeignKey('art_types.art_type_id')
+
+    # establishes relationship thanks to the Foreign Key
+    collection = db.relationship('Collection', backref='artworks')
+    art_type = db.relationship('ArtType', backref="art_types")
+
+    def __repr__(self):
+        """Info on artworks"""
+
+        return "<Artwork id: {}, Title: {}, Image: {}, Date: {}, Medium: {}, Description: {}, Height {}, Witdh {}, Collection id: {}, ArtType id: {}>".format(
+            self.artwork_id, self.title, self.image_url, self.date, self.medium, self.description, self.height, self.width, self.collection_id, self.art_type_id)
 
 
 class Artist(db.Model):
