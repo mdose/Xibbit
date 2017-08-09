@@ -15,7 +15,7 @@ db = SQLAlchemy()
 class Art(db.Model):
     """Art model"""
 
-    ___tablename__ = "artworks"
+    __tablename__ = "artworks"
 
     art_id = db.Column(db.Integer,
                        primary_key=True,
@@ -42,7 +42,7 @@ class Art(db.Model):
                             db.ForeignKey('art_types.art_type_id'),
                             nullable=False)
     art_movement_id = db.Column(db.Integer,
-                                db.ForeignKey('art_movments.art_movement_id'),
+                                db.ForeignKey('art_movements.art_movement_id'),
                                 nullable=False,)
     subject_matter_id = db.Column(db.Integer,
                                   db.ForeignKey('subject_matters.subject_matter_id'),
@@ -72,7 +72,7 @@ class Art(db.Model):
 class Artist(db.Model):
     """Artist model"""
 
-    ___tablename__ = "artists"
+    __tablename__ = "artists"
 
     artist_id = db.Column(db.Integer,
                           primary_key=True,
@@ -99,7 +99,7 @@ class Artist(db.Model):
 class User(db.Model):
     """User model"""
 
-    ___tablename__ = "users"
+    __tablename__ = "users"
 
     user_id = db.Column(db.Integer,
                         primary_key=True,
@@ -125,7 +125,7 @@ class User(db.Model):
 class ArtType(db.Model):
     """Type of an artwork (ex. painting, sculpture, ceramics, etc.) Model"""
 
-    ___tablename__ = "art_types"
+    __tablename__ = "art_types"
 
     art_type_id = db.Column(db.Integer,
                             primary_key=True,
@@ -142,7 +142,7 @@ class ArtType(db.Model):
 class Collection(db.Model):
     """Where the artwork currently lives Model"""
 
-    ___tablename__ = "collections"
+    __tablename__ = "collections"
 
     collection_id = db.Column(db.Integer,
                               primary_key=True,
@@ -161,7 +161,7 @@ class Collection(db.Model):
 class ArtMovement(db.Model):
     """Primary artistic movement the artwork is associated with Model"""
 
-    ___tablename__ = "art_movements"
+    __tablename__ = 'art_movements'
 
     art_movement_id = db.Column(db.Integer,
                                 primary_key=True,
@@ -182,7 +182,7 @@ class SubjectMatter(db.Model):
     """Primary classification of the artwork within traditional art sphere Model"""
     """Ex. Portrait, Landscape, Still Life, etc."""
 
-    ___tablename__ = "subject_matters"
+    __tablename__ = "subject_matters"
 
     subject_matter_id = db.Column(db.Integer,
                                   primary_key=True,
@@ -200,7 +200,7 @@ class SubjectMatter(db.Model):
 class ArtistArt(db.Model):
     """Association table for Artists and Artworks"""
 
-    ___tablename__ = "artists_artworks"
+    __tablename__ = "artists_artworks"
 
     artrist_art_id = db.Column(db.Integer,
                                primary_key=True,
@@ -219,7 +219,7 @@ class ArtistArt(db.Model):
 class UserArt(db.Model):
     """Association table for Users and Artworks"""
 
-    ___tablename__ = "users_artworks"
+    __tablename__ = "users_artworks"
 
     user_art_id = db.Column(db.Integer,
                             primary_key=True,
@@ -240,7 +240,7 @@ class UserArt(db.Model):
 class UserArtist(db.Model):
     """Association table for Users and Artists"""
 
-    ___tablename__ = "users_artists"
+    __tablename__ = "users_artists"
 
     user_artist_id = db.Column(db.Integer,
                                primary_key=True,
@@ -261,7 +261,7 @@ class UserArtist(db.Model):
 class UserCollection(db.Model):
     """Association table for Users and Collections/Museums"""
 
-    ___tablename__ = "users_collections"
+    __tablename__ = "users_collections"
 
     user_collection_id = db.Column(db.Integer,
                                    primary_key=True,
@@ -283,7 +283,7 @@ class UserCollection(db.Model):
 # class ArtworkArtMovement(db.Model):
 #     """Association table for Artworks and ArtMovements"""
 
-#     ___tablename__ = "artworks_artmovements"
+#     __tablename__ = "artworks_artmovements"
 
 #     pass
 

@@ -1,0 +1,177 @@
+masterpieces=# \dt
+              List of relations
+ Schema |       Name        | Type  |  Owner
+--------+-------------------+-------+---------
+ public | art_movements     | table | vagrant
+ public | art_types         | table | vagrant
+ public | artists           | table | vagrant
+ public | artists_artworks  | table | vagrant
+ public | artworks          | table | vagrant
+ public | collections       | table | vagrant
+ public | subject_matters   | table | vagrant
+ public | users             | table | vagrant
+ public | users_artists     | table | vagrant
+ public | users_artworks    | table | vagrant
+ public | users_collections | table | vagrant
+(11 rows)
+
+masterpieces=# \d artworks
+                                        Table "public.artworks"
+      Column       |          Type          |                         Modifiers
+-------------------+------------------------+-----------------------------------------------------------
+ art_id            | integer                | not null default nextval('artworks_art_id_seq'::regclass)
+ title             | character varying(100) | not null
+ image_url         | character varying(500) |
+ year              | integer                |
+ year_range        | integer                |
+ circa             | boolean                |
+ year_description  | character varying(50)  |
+ medium            | character varying(100) | not null
+ description       | character varying(500) |
+ height_cm         | double precision       |
+ width_cm          | double precision       |
+ collection_id     | integer                | not null
+ art_type_id       | integer                | not null
+ art_movement_id   | integer                | not null
+ subject_matter_id | integer                | not null
+Indexes:
+    "artworks_pkey" PRIMARY KEY, btree (art_id)
+Foreign-key constraints:
+    "artworks_art_movement_id_fkey" FOREIGN KEY (art_movement_id) REFERENCES art_movements(art_movement_id)
+    "artworks_art_type_id_fkey" FOREIGN KEY (art_type_id) REFERENCES art_types(art_type_id)
+    "artworks_collection_id_fkey" FOREIGN KEY (collection_id) REFERENCES collections(collection_id)
+    "artworks_subject_matter_id_fkey" FOREIGN KEY (subject_matter_id) REFERENCES subject_matters(subject_matter_id)
+Referenced by:
+    TABLE "artists_artworks" CONSTRAINT "artists_artworks_art_id_fkey" FOREIGN KEY (art_id) REFERENCES artworks(art_id)
+    TABLE "users_artworks" CONSTRAINT "users_artworks_art_id_fkey" FOREIGN KEY (art_id) REFERENCES artworks(art_id)
+
+masterpieces=# \d artists
+                                        Table "public.artists"
+     Column     |          Type          |                          Modifiers
+----------------+------------------------+-------------------------------------------------------------
+ artist_id      | integer                | not null default nextval('artists_artist_id_seq'::regclass)
+ primary_name   | character varying(100) | not null
+ secondary_name | character varying(100) |
+ birth_year     | integer                |
+ death_year     | integer                |
+ bio            | character varying(500) |
+ image_url      | character varying(500) |
+Indexes:
+    "artists_pkey" PRIMARY KEY, btree (artist_id)
+Referenced by:
+    TABLE "artists_artworks" CONSTRAINT "artists_artworks_artist_id_fkey" FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+    TABLE "users_artists" CONSTRAINT "users_artists_artist_id_fkey" FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+
+masterpieces=# \d users
+                                    Table "public.users"
+  Column  |          Type          |                        Modifiers
+----------+------------------------+---------------------------------------------------------
+ user_id  | integer                | not null default nextval('users_user_id_seq'::regclass)
+ email    | character varying(100) | not null
+ password | character varying(100) | not null
+ username | character varying(100) | not null
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (user_id)
+Referenced by:
+    TABLE "users_artists" CONSTRAINT "users_artists_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(user_id)
+    TABLE "users_artworks" CONSTRAINT "users_artworks_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(user_id)
+    TABLE "users_collections" CONSTRAINT "users_collections_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(user_id)
+
+masterpieces=# \d art_types
+                                       Table "public.art_types"
+   Column    |         Type          |                            Modifiers
+-------------+-----------------------+-----------------------------------------------------------------
+ art_type_id | integer               | not null default nextval('art_types_art_type_id_seq'::regclass)
+ art_type    | character varying(50) | not null
+Indexes:
+    "art_types_pkey" PRIMARY KEY, btree (art_type_id)
+Referenced by:
+    TABLE "artworks" CONSTRAINT "artworks_art_type_id_fkey" FOREIGN KEY (art_type_id) REFERENCES art_types(art_type_id)
+
+masterpieces=# \d collections
+                                          Table "public.collections"
+    Column     |          Type          |                              Modifiers
+---------------+------------------------+---------------------------------------------------------------------
+ collection_id | integer                | not null default nextval('collections_collection_id_seq'::regclass)
+ name          | character varying(100) | not null
+ location      | character varying(50)  | not null
+Indexes:
+    "collections_pkey" PRIMARY KEY, btree (collection_id)
+Referenced by:
+    TABLE "artworks" CONSTRAINT "artworks_collection_id_fkey" FOREIGN KEY (collection_id) REFERENCES collections(collection_id)
+    TABLE "users_collections" CONSTRAINT "users_collections_collection_id_fkey" FOREIGN KEY (collection_id) REFERENCES collections(collection_id)
+
+masterpieces=# \d art_movements
+                                            Table "public.art_movements"
+     Column      |          Type          |                                Modifiers
+-----------------+------------------------+-------------------------------------------------------------------------
+ art_movement_id | integer                | not null default nextval('art_movements_art_movement_id_seq'::regclass)
+ movement_name   | character varying(50)  | not null
+ description     | character varying(500) |
+Indexes:
+    "art_movements_pkey" PRIMARY KEY, btree (art_movement_id)
+Referenced by:
+    TABLE "artworks" CONSTRAINT "artworks_art_movement_id_fkey" FOREIGN KEY (art_movement_id) REFERENCES art_movements(art_movement_id)
+
+masterpieces=# \d subject_matters
+                                             Table "public.subject_matters"
+      Column       |         Type          |                                  Modifiers
+-------------------+-----------------------+-----------------------------------------------------------------------------
+ subject_matter_id | integer               | not null default nextval('subject_matters_subject_matter_id_seq'::regclass)
+ category          | character varying(50) | not null
+Indexes:
+    "subject_matters_pkey" PRIMARY KEY, btree (subject_matter_id)
+Referenced by:
+    TABLE "artworks" CONSTRAINT "artworks_subject_matter_id_fkey" FOREIGN KEY (subject_matter_id) REFERENCES subject_matters(subject_matter_id)
+
+masterpieces=# \d artists_artworks
+                                   Table "public.artists_artworks"
+     Column     |  Type   |                                 Modifiers
+----------------+---------+---------------------------------------------------------------------------
+ artrist_art_id | integer | not null default nextval('artists_artworks_artrist_art_id_seq'::regclass)
+ artist_id      | integer | not null
+ art_id         | integer | not null
+Indexes:
+    "artists_artworks_pkey" PRIMARY KEY, btree (artrist_art_id)
+Foreign-key constraints:
+    "artists_artworks_art_id_fkey" FOREIGN KEY (art_id) REFERENCES artworks(art_id)
+    "artists_artworks_artist_id_fkey" FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+
+masterpieces=# \d users_artworks
+                                Table "public.users_artworks"
+   Column    |  Type   |                              Modifiers
+-------------+---------+----------------------------------------------------------------------
+ user_art_id | integer | not null default nextval('users_artworks_user_art_id_seq'::regclass)
+ user_id     | integer | not null
+ art_id      | integer | not null
+Indexes:
+    "users_artworks_pkey" PRIMARY KEY, btree (user_art_id)
+Foreign-key constraints:
+    "users_artworks_art_id_fkey" FOREIGN KEY (art_id) REFERENCES artworks(art_id)
+    "users_artworks_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(user_id)
+
+masterpieces=# \d users_artists
+                                   Table "public.users_artists"
+     Column     |  Type   |                               Modifiers
+----------------+---------+------------------------------------------------------------------------
+ user_artist_id | integer | not null default nextval('users_artists_user_artist_id_seq'::regclass)
+ user_id        | integer | not null
+ artist_id      | integer | not null
+Indexes:
+    "users_artists_pkey" PRIMARY KEY, btree (user_artist_id)
+Foreign-key constraints:
+    "users_artists_artist_id_fkey" FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+    "users_artists_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(user_id)
+
+masterpieces=# \d users_collections
+                                       Table "public.users_collections"
+       Column       |  Type   |                                   Modifiers
+--------------------+---------+--------------------------------------------------------------------------------
+ user_collection_id | integer | not null default nextval('users_collections_user_collection_id_seq'::regclass)
+ user_id            | integer | not null
+ collection_id      | integer | not null
+Indexes:
+    "users_collections_pkey" PRIMARY KEY, btree (user_collection_id)
+Foreign-key constraints:
+    "users_collections_collection_id_fkey" FOREIGN KEY (collection_id) REFERENCES collections(collection_id)
+    "users_collections_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(user_id)

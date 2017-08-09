@@ -5,10 +5,9 @@ from jinja2 import StrictUndefined
 from flask import (Flask, render_template, redirect, request, flash, session)
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import (Artwork, Artist, User, ArtType, Collection, ArtMovement,
-                   ArworkArtMovement, SubjectMatter, ArtworkSubjectMatter,
-                   ArtistArtwork, FavoritedArtwork, FavoritedArtist,
-                   FavoritedCollection, connect_to_db, db)
+from model import (Art, Artist, User, ArtType, Collection, ArtMovement,
+                   SubjectMatter, ArtistArt, UserArt, UserArtist,
+                   UserCollection, connect_to_db, db)
 
 
 app = Flask(__name__)
