@@ -191,31 +191,99 @@ class SubjectMatter(db.Model):
             self.subject_matter_id, self.category)
 
 
-class ArtistArtwork(db.Model):
+class ArtistArt(db.Model):
     """Association table for Artists and Artworks"""
 
-    pass
+    ___tablename__ = "artists_artworks"
+
+    artrist_art_id = db.Column(db.Integer,
+                               primary_key=True,
+                               autoincrement=True,
+                               nullable=False)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.artist_id'), nullable=False)
+    art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
+
+    artist = db.relationship('Artist', backref='artists_artworks')
+    art = db.relationship('Art', backref='artists_artworks')
+
+    def __repr__(self):
+        """Info for Artist/Art Table"""
+
+        return "<Artist/Art id: {}, Artist id: {}, Art id: {}>".format(
+            self.artist_art_id, self.artist_id, self.art_id)
 
 
 class UserArt(db.Model):
     """Association table for Users and Artworks"""
 
+    ___tablename__ = "users_artworks"
+
+    user_art_id = db.Column(db.Integer,
+                            primary_key=True,
+                            autoincrement=True,
+                            nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
     # list_id (2.0)
-    pass
+
+
+    user = db.relationship('User', backref='users_artworks')
+    art = db.relationship('Art', backref='users_artworks')
+
+    def __repr__(self):
+        """Info on the User/Art Table"""
+
+        return "<User/Art id: {}, User id: {}, Art id: {}>".format(
+            self.user_art_id, self.user_id, self.art_id)
 
 
 class UserArtist(db.Model):
     """Association table for Users and Artists"""
 
+    ___tablename__ = "users_artists"
+
+    user_artist_id = db.Column(db.Integer,
+                               primary_key=True,
+                               autoincrement=True,
+                               nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.artist_id'), nullable=False)
     # list_id (2.0)
-    pass
+
+
+    user = db.relationship('User', backref='users_artists')
+    artist = db.relationship('Artist', backref='users_artists')
+
+    def __repr__(self):
+        """Info on the User/Artist Table"""
+
+        return "<User/Artist id: {}, User id: {}, Artist id: {}>".format(
+            self.user_artist_id, self.user_id, self.artist_id)
 
 
 class UserCollection(db.Model):
     """Association table for Users and Collections/Museums"""
 
+    ___tablename__ = "users_collections"
+
+    user_collection_id = db.Column(db.Integer,
+                                   primary_key=True,
+                                   autoincrement=True,
+                                   nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    collection_id = db.Column(db.Integer, db.ForeignKey('collections.collection_id'),
+                              nullable=False)
     # list_id (2.0)
-    pass
+
+
+    user = db.relationship('User', backref='users_collections')
+    collection = db.relationship('Collection', backref='users_collections')
+
+    def __repr__(self):
+        """Info on the User/Collection Table"""
+
+        return "<User/Collection id: {}, User id: {}, Collection: {}>".format(
+            self.user_collection_id, self.user_id, self.collection_id)
 
 
 # class ArtworkArtMovement(db.Model):
