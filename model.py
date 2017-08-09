@@ -54,6 +54,7 @@ class Art(db.Model):
     art_type = db.relationship('ArtType', backref='artworks')
     art_movement = db.relationship('ArtMovement', backref='artworks')
     subject_matter = db.relationship('SubjectMatter', backref='artworks')
+    artists = db.relationship('Artist', secondary='artists_artworks', backref='artworks')
 
     def __repr__(self):
         """Info on artworks"""
@@ -108,6 +109,11 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(100), nullable=False)
     # For 2.0 -> image_url = db.Column(db.String(500), nullable=True)
+
+    artworks = db.relationship('Art', secondary='users_artworks', backref='users')
+    artists = db.relationship('Artist', secondary='users_artists', backref='users')
+    collections = db.relationship('Collection', secondary='users_collections',
+                                  backref='users')
 
     def __repr__(self):
         """Info on Users"""
@@ -203,9 +209,6 @@ class ArtistArt(db.Model):
     artist_id = db.Column(db.Integer, db.ForeignKey('artists.artist_id'), nullable=False)
     art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
 
-    artist = db.relationship('Artist', backref='artists_artworks')
-    art = db.relationship('Art', backref='artists_artworks')
-
     def __repr__(self):
         """Info for Artist/Art Table"""
 
@@ -226,9 +229,6 @@ class UserArt(db.Model):
     art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
     # list_id (2.0)
 
-
-    user = db.relationship('User', backref='users_artworks')
-    art = db.relationship('Art', backref='users_artworks')
 
     def __repr__(self):
         """Info on the User/Art Table"""
@@ -251,9 +251,6 @@ class UserArtist(db.Model):
     # list_id (2.0)
 
 
-    user = db.relationship('User', backref='users_artists')
-    artist = db.relationship('Artist', backref='users_artists')
-
     def __repr__(self):
         """Info on the User/Artist Table"""
 
@@ -275,9 +272,6 @@ class UserCollection(db.Model):
                               nullable=False)
     # list_id (2.0)
 
-
-    user = db.relationship('User', backref='users_collections')
-    collection = db.relationship('Collection', backref='users_collections')
 
     def __repr__(self):
         """Info on the User/Collection Table"""
