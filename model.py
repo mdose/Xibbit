@@ -52,7 +52,7 @@ class Art(db.Model):
 
     # establishes relationship thanks to the Foreign Key
     collection = db.relationship('Collection', backref='artworks')
-    art_type = db.relationship('ArtType', backref='artworks')
+    art_types = db.relationship('ArtType', backref='artworks')
     art_movement = db.relationship('ArtMovement', backref='artworks')
     subject_matter = db.relationship('SubjectMatter', backref='artworks')
     artists = db.relationship('Artist', secondary='artists_artworks', backref='artworks')

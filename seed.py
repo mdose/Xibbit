@@ -3,8 +3,7 @@
 # from sqlalchemy import func
 from model import Art
 from model import Artist
-# from model import User
-# from model import ArtType
+from model import ArtType
 # from model import Collection
 # from model import ArtMovement
 # from model import ArtistArt
@@ -43,11 +42,12 @@ def load_art():
         description = row[8]
         height_cm = row[9]
         width_cm = row[10] if row[10] else None
+        art_type_id = row[11]
 
         art = Art(art_id=art_id, title=title, image_url=image_url, circa=circa,
                   year=year, year_range=year_range, year_description=year_description,
                   medium=medium, description=description, height_cm=height_cm,
-                  width_cm=width_cm)
+                  width_cm=width_cm, art_type_id=art_type_id)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(art)
@@ -83,24 +83,22 @@ def load_artists():
     db.session.commit()
 
 
-# def load_ratings():
-#     """Load ratings from u.data into database."""
+def load_art_type():
+    """Load artypes from u.art_types into database."""
 
-#     print "Ratings"
+    print "Art Types"
 
-#     Rating.query.delete()
+    ArtType.query.delete()
 
-#     for row in open("seed_data/u.data"):
-#         row = row.rstrip()
-#         row = row.split("\t")
-#         user_id, movie_id, score = row[:3]
+    for row in open("seed_data/u.art_types"):
+        row = row.rstrip("\n").strip(chr(13))
+        row = row.split("\t")
+        art_type_id, art_type = row
 
-#         rating = Rating(movie_id=movie_id,
-#                         user_id=user_id,
-#                         score=score)
-#         db.session.add(rating)
+        art_type = ArtType(art_type_id=art_type_id, art_type=art_type)
+        db.session.add(art_type)
 
-#     db.session.commit()
+    db.session.commit()
 
 
 ##############################################################################
