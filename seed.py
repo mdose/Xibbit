@@ -30,6 +30,7 @@ def load_art():
         # NOTE: Google puts carriage return \n AND new feed combo at the end of
         # coverted tvs files (hence the janky fix).
         # Possible TO DO: refactor with built-in cvs module (using tvs for now b/c of commas)
+        # ALSO: look into range data types for Postgresql to make date searching eaiser
         row = row.rstrip("\n").strip(chr(13))
         row = row.split("\t")
         art_id = row[0]
@@ -72,6 +73,7 @@ def load_artists():
     for row in open("seed_data/u.artists"):
         row = row.rstrip("\n").strip(chr(13))
         row = row.split("\t")
+        # NOTE: look into range data types in Postgresql to make searching for years eaiser
         artist_id = row[0]
         primary_name = row[1]
         secondary_name = row[2] if row[2] else None
