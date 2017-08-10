@@ -35,18 +35,19 @@ class Art(db.Model):
     description = db.Column(db.String(500), nullable=True)
     height_cm = db.Column(db.Float, nullable=True)
     width_cm = db.Column(db.Float, nullable=True)
+    # make all one-to-many foreign keys/table ids not nullable once you add them to the seed data!!!
     collection_id = db.Column(db.Integer,
                               db.ForeignKey('collections.collection_id'),
-                              nullable=False)
+                              nullable=True)
     art_type_id = db.Column(db.Integer,
                             db.ForeignKey('art_types.art_type_id'),
-                            nullable=False)
+                            nullable=True)
     art_movement_id = db.Column(db.Integer,
                                 db.ForeignKey('art_movements.art_movement_id'),
-                                nullable=False,)
+                                nullable=True,)
     subject_matter_id = db.Column(db.Integer,
                                   db.ForeignKey('subject_matters.subject_matter_id'),
-                                  nullable=False)
+                                  nullable=True)
 
 
     # establishes relationship thanks to the Foreign Key
@@ -63,10 +64,10 @@ class Art(db.Model):
         <Artwork id: {}, Title: {}, Image: {}, Date: {}{}-{} {}, Medium: {},
         Description: {}, Height {}, Witdh {}, Collection id: {}, ArtType id: {},
         ArtMovement: {}, SubjectMatter: {}>
-        """.format(self.artwork_id, self.title, self.image_url, self.circa,
-                   self.year, self.year_range, self.year_description, self.medium,
-                   self.description, self.height_cm, self.width_cm, self.collection_id,
-                   self.art_type_id, self.art_movement_id, self.subject_matter_id)
+        """.format(self.art_id, self.title, self.image_url, self.circa, self.year,
+                   self.year_range, self.year_description, self.medium, self.description,
+                   self.height_cm, self.width_cm, self.collection_id, self.art_type_id,
+                   self.art_movement_id, self.subject_matter_id)
 
 
 class Artist(db.Model):
@@ -315,7 +316,7 @@ def connect_to_db(app):
 
     # Configure to use our database.
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///masterpieces'
-    app.config['SQLALCHEMY_ECHO'] = True
+    app.config['SQLALCHEMY_ECHO'] = False
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
