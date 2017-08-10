@@ -82,8 +82,7 @@ class Artist(db.Model):
     secondary_name = db.Column(db.String(100), nullable=True)
     birth_year = db.Column(db.Integer, nullable=True)
     death_year = db.Column(db.Integer, nullable=True)
-    # make not nullable once bio is added!!!
-    bio = db.Column(db.String(10000), nullable=True)
+    bio = db.Column(db.String(10000), nullable=False)
     image_url = db.Column(db.String(1000), nullable=True)
 
     def __repr__(self):

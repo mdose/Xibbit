@@ -5,7 +5,8 @@ from model import Art
 from model import Artist
 from model import ArtType
 from model import Collection
-# from model import ArtMovement
+from model import ArtMovement
+from model import SubjectMatter
 # from model import ArtistArt
 # from model import UserArt
 # from model import UserArtist
@@ -44,11 +45,14 @@ def load_art():
         width_cm = row[10] if row[10] else None
         art_type_id = row[11]
         collection_id = row[12]
+        art_movement_id = row[13]
+        subject_matter_id = row[14]
 
         art = Art(art_id=art_id, title=title, image_url=image_url, circa=circa,
                   year=year, year_range=year_range, year_description=year_description,
                   medium=medium, description=description, height_cm=height_cm,
-                  width_cm=width_cm, art_type_id=art_type_id, collection_id=collection_id)
+                  width_cm=width_cm, art_type_id=art_type_id, collection_id=collection_id,
+                  art_movement_id=art_movement_id, subject_matter_id=subject_matter_id)
 
 
         # We need to add to the session or it won't ever be stored
@@ -85,8 +89,8 @@ def load_artists():
     db.session.commit()
 
 
-def load_art_type():
-    """Load artypes from u.art_types into database."""
+def load_art_types():
+    """Load art types from u.art_types into database."""
 
     print "Art Types"
 
@@ -103,7 +107,7 @@ def load_art_type():
     db.session.commit()
 
 
-def load_collection():
+def load_collections():
     """Load collections from u.collecetions into database."""
 
     print "Collections"
@@ -115,8 +119,49 @@ def load_collection():
         row = row.split("\t")
         collection_id, name, location = row
 
-        collection = Collection(collection_id=collection_id, name=name, location=location)
+        collection = Collection(collection_id=collection_id, name=name,
+                                location=location)
         db.session.add(collection)
+
+    db.session.commit()
+
+
+def load_art_movements():
+    """Load art movements from u.art_movements into database."""
+
+    print "Art Movements"
+
+    ArtMovement.query.delete()
+
+    for row in open("seed_data/u.art_movements"):
+        row = row.rstrip("\n").strip(chr(13))
+        row = row.split("\t")
+        # make sure to add descriptions to the table and add an extra "description"
+        # variable to unpacked
+        art_movement_id, movement_name = row
+
+        art_movement = ArtMovement(art_movement_id=art_movement_id,
+                                   movement_name=movement_name)
+        db.session.add(art_movement)
+
+    db.session.commit()
+
+
+def load_subject_matters():
+    """Load subject matters from u.subject_matters into database."""
+
+    print "Subject Matters"
+
+    SubjectMatter.query.delete()
+
+    for row in open("seed_data/u.subject_matters"):
+        row = row.rstrip("\n").strip(chr(13))
+        row = row.split("\t")
+        subject_matter_id, category = row
+
+        subject_matter = SubjectMatter(subject_matter_id=subject_matter_id,
+                                       category=category)
+        db.session.add(subject_matter)
 
     db.session.commit()
 
@@ -146,7 +191,9 @@ if __name__ == "__main__":
     db.create_all()
 
     # Import different types of data
-    load_art_type()
-    load_collection()
+    load_art_types()
+    load_collections()
+    load_art_movements()
+    load_subject_matters()
     load_art()
     load_artists()
