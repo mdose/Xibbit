@@ -22,8 +22,7 @@ class Art(db.Model):
                        autoincrement=True,
                        nullable=False)
     title = db.Column(db.String(100), nullable=False)
-    # make images not nullable once you add urls to seed data!!!
-    image_url = db.Column(db.String(1000), nullable=True)
+    image_url = db.Column(db.String(1000), nullable=False)
     # !!!Remember to add a constraint to db or server that insures that year or
     # year description is required to add art to the database (all are nullable)
     year = db.Column(db.Integer, nullable=True)
@@ -31,23 +30,21 @@ class Art(db.Model):
     circa = db.Column(db.Boolean, nullable=True)
     year_description = db.Column(db.String(50), nullable=True)
     medium = db.Column(db.String(100), nullable=False)
-    # make descriptions not nullable once you add them to the seed data!!!
-    description = db.Column(db.String(10000), nullable=True)
+    description = db.Column(db.String(10000), nullable=False)
     height_cm = db.Column(db.Float, nullable=True)
     width_cm = db.Column(db.Float, nullable=True)
-    # make all one-to-many foreign keys/table ids not nullable once you add them to the seed data!!!
     collection_id = db.Column(db.Integer,
                               db.ForeignKey('collections.collection_id'),
-                              nullable=True)
+                              nullable=False)
     art_type_id = db.Column(db.Integer,
                             db.ForeignKey('art_types.art_type_id'),
-                            nullable=True)
+                            nullable=False)
     art_movement_id = db.Column(db.Integer,
                                 db.ForeignKey('art_movements.art_movement_id'),
-                                nullable=True,)
+                                nullable=False,)
     subject_matter_id = db.Column(db.Integer,
                                   db.ForeignKey('subject_matters.subject_matter_id'),
-                                  nullable=True)
+                                  nullable=False)
 
 
     # establishes relationship thanks to the Foreign Key

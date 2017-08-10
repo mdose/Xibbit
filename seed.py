@@ -4,7 +4,7 @@
 from model import Art
 from model import Artist
 from model import ArtType
-# from model import Collection
+from model import Collection
 # from model import ArtMovement
 # from model import ArtistArt
 # from model import UserArt
@@ -43,11 +43,13 @@ def load_art():
         height_cm = row[9]
         width_cm = row[10] if row[10] else None
         art_type_id = row[11]
+        collection_id = row[12]
 
         art = Art(art_id=art_id, title=title, image_url=image_url, circa=circa,
                   year=year, year_range=year_range, year_description=year_description,
                   medium=medium, description=description, height_cm=height_cm,
-                  width_cm=width_cm, art_type_id=art_type_id)
+                  width_cm=width_cm, art_type_id=art_type_id, collection_id=collection_id)
+
 
         # We need to add to the session or it won't ever be stored
         db.session.add(art)
@@ -101,6 +103,24 @@ def load_art_type():
     db.session.commit()
 
 
+def load_collection():
+    """Load collections from u.collecetions into database."""
+
+    print "Collections"
+
+    Collection.query.delete()
+
+    for row in open("seed_data/u.collections"):
+        row = row.rstrip("\n").strip(chr(13))
+        row = row.split("\t")
+        collection_id, name, location = row
+
+        collection = Collection(collection_id=collection_id, name=name, location=location)
+        db.session.add(collection)
+
+    db.session.commit()
+
+
 ##############################################################################
 # for 3.0 add more info to db forms; the solution below is for if it's just one
 # table. If more than one, Katie has a solution to make more d.r.y. with special
@@ -126,5 +146,7 @@ if __name__ == "__main__":
     db.create_all()
 
     # Import different types of data
+    load_art_type()
+    load_collection()
     load_art()
     load_artists()
