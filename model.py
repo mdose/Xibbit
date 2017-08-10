@@ -23,7 +23,7 @@ class Art(db.Model):
                        nullable=False)
     title = db.Column(db.String(100), nullable=False)
     # make images not nullable once you add urls to seed data!!!
-    image_url = db.Column(db.String(500), nullable=True)
+    image_url = db.Column(db.String(1000), nullable=True)
     # !!!Remember to add a constraint to db or server that insures that year or
     # year description is required to add art to the database (all are nullable)
     year = db.Column(db.Integer, nullable=True)
@@ -32,7 +32,7 @@ class Art(db.Model):
     year_description = db.Column(db.String(50), nullable=True)
     medium = db.Column(db.String(100), nullable=False)
     # make descriptions not nullable once you add them to the seed data!!!
-    description = db.Column(db.String(500), nullable=True)
+    description = db.Column(db.String(10000), nullable=True)
     height_cm = db.Column(db.Float, nullable=True)
     width_cm = db.Column(db.Float, nullable=True)
     # make all one-to-many foreign keys/table ids not nullable once you add them to the seed data!!!
@@ -86,8 +86,8 @@ class Artist(db.Model):
     birth_year = db.Column(db.Integer, nullable=True)
     death_year = db.Column(db.Integer, nullable=True)
     # make not nullable once bio is added!!!
-    bio = db.Column(db.String(500), nullable=True)
-    image_url = db.Column(db.String(500), nullable=True)
+    bio = db.Column(db.String(10000), nullable=True)
+    image_url = db.Column(db.String(1000), nullable=True)
 
     def __repr__(self):
         """Info on artists"""
@@ -170,7 +170,7 @@ class ArtMovement(db.Model):
                                 nullable=False)
     movement_name = db.Column(db.String(50), nullable=False)
     # make descriptions not nullable once you add them to the seed data!!!
-    description = db.Column(db.String(500), nullable=True)
+    description = db.Column(db.String(10000), nullable=True)
 
     def __repr__(self):
         """Info on the different art movements"""
