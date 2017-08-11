@@ -40,9 +40,10 @@ def process_registration_form():
     password = request.form.get("password")
     username = request.form.get("username")
 
-    if User.query.filter(User.email == "email").first():
+    if User.query.filter(User.email == email).first():
         flash("You are already registered, please log in.")
-    elif User.query.filter(User.username == "username").first():
+    elif User.query.filter(User.username == username).first():
+        # This would work better as a popup alert on the log-in page without redirecting
         flash("Sorry. That username is already taken.")
     else:
         new_user = User(email=email, password=password, username=username)
@@ -52,6 +53,43 @@ def process_registration_form():
         flash('You were successfully registered.')
 
     return redirect('/')
+
+
+@app.route("/login", methods=["GET"])
+def login_form():
+    """Display login form. Weeeeee."""
+
+    return render_template("login_form.html")
+
+
+@app.route("/login", methods=["POST"])
+def process_login_form():
+
+    email = request.form['email']
+    password = request.form['password']
+    user = User.query.filter(User.email == email).first()
+
+    # print user.email, user.password
+
+    if user and user.email == email and user.password == password:
+        print session
+        session['current_user'] = user.user_id
+        print session
+        flash("Logged in as %s" % user.user_id)
+        print session
+        return redirect("/")
+    else:
+        flash("Incorrect user or password.")
+        return redirect("/login")
+
+
+@app.route("/logout")
+def logout():
+    """Logout"""
+
+    del(session['current_user'])
+
+    return render_template("logout.html")
 
 
 ################################################################################
