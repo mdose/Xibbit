@@ -25,6 +25,7 @@ def index():
     return render_template("homepage.html")
 
 
+# Figure out how to combine registrartion and login forms onto the same page/popup
 @app.route('/register', methods=["GET"])
 def register_form():
     """Getting User Info from form"""
@@ -40,6 +41,8 @@ def process_registration_form():
     password = request.form.get("password")
     username = request.form.get("username")
 
+
+# Maybe 2.0: Improve form validations wtih regular expressions
     if User.query.filter(User.email == email).first():
         flash("You are already registered, please log in.")
         return redirect("/login")
@@ -69,6 +72,7 @@ def login_form():
 def process_login_form():
     """Handles login form data and redi"""
 
+# Maybe 2.0: Improve form validations wtih regular expressions
     email = request.form['email']
     password = request.form['password']
     user = User.query.filter(User.email == email).first()
@@ -84,6 +88,10 @@ def process_login_form():
         return redirect("/login")
 
 
+# Figure out how to handle edge case when someone clicks this button and there is
+# no cookie session.
+# intial ideas include toggling the button with jQuery and/or redirecting to homepage
+# with flash message stating that user is not logged in.
 @app.route("/logout")
 def logout():
     """Logout"""
