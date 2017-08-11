@@ -70,19 +70,23 @@ def login_form():
 
 @app.route("/login", methods=["POST"])
 def process_login_form():
-    """Handles login form data and redi"""
+    """Handles login form data and redirects to correct route"""
 
 # Maybe 2.0: Improve form validations wtih regular expressions
     email = request.form['email']
     password = request.form['password']
     user = User.query.filter(User.email == email).first()
+    #user_id = User.query.filter_by(user_id=user_id).first()
 
     # print user.email, user.password
 
     if user and user.email == email and user.password == password:
         session['current_user'] = user.user_id
         flash("Logged in as %s" % user.username)
-        return redirect("/")
+        return render_template("profile.html", user=user)
+        # return redirect("/users/<user_id>")
+        # getting data error invalid input syntax for integer: when I try to
+        # redirect to this route, but works with rendering template. Why?
     else:
         flash("Incorrect user or password.")
         return redirect("/login")
@@ -104,6 +108,18 @@ def logout():
     del(session['current_user'])
     return render_template("logout.html")
 
+
+@app.route("/users/<user_id>")
+def user(user_id):
+    """Generates the profile page for each user in db."""
+
+    user = User.query.filter_by(user_id=user_id).first()
+    if user == None:
+        flash("User %s not found." % user_id)
+        return redirect("/login")
+
+    return render_template("profile.html",
+                          user=user)
 
 ################################################################################
 
