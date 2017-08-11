@@ -11,7 +11,10 @@
     <li>{{ message }}</li>
   {% endfor %}
   </ul>
-  <!-- toggle this as an on/off button and add an register button too. -->
+  <!-- toggle the login/logout button with jQuery. -->
+  <button><a href="/">Home</a></button>
+  <button><a href="/register">Register </a></button>
+  <button><a href="/login">Login</a></button>
   <button><a href="/logout">Logout </a></button>
 
   {% block content %}

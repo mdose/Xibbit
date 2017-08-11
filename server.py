@@ -42,28 +42,32 @@ def process_registration_form():
 
     if User.query.filter(User.email == email).first():
         flash("You are already registered, please log in.")
+        return redirect("/login")
     elif User.query.filter(User.username == username).first():
         # This would work better as a popup alert on the log-in page without redirecting
-        flash("Sorry. That username is already taken.")
+        flash("Sorry, that username is already taken. Please chose a different username.")
+        return redirect("/register")
     else:
         new_user = User(email=email, password=password, username=username)
         db.session.add(new_user)
         db.session.commit()
         session['current_user'] = new_user.user_id
-        flash('You were successfully registered.')
+        flash('You were successfully registered, please login.')
+        return redirect("/login")
 
-    return redirect('/')
+    # return redirect('/')
 
 
 @app.route("/login", methods=["GET"])
 def login_form():
-    """Display login form. Weeeeee."""
+    """Displays login form."""
 
     return render_template("login_form.html")
 
 
 @app.route("/login", methods=["POST"])
 def process_login_form():
+    """Handles login form data and redi"""
 
     email = request.form['email']
     password = request.form['password']
@@ -72,11 +76,8 @@ def process_login_form():
     # print user.email, user.password
 
     if user and user.email == email and user.password == password:
-        print session
         session['current_user'] = user.user_id
-        print session
-        flash("Logged in as %s" % user.user_id)
-        print session
+        flash("Logged in as %s" % user.username)
         return redirect("/")
     else:
         flash("Incorrect user or password.")
@@ -87,8 +88,12 @@ def process_login_form():
 def logout():
     """Logout"""
 
+    # if 'current_user' == None:
+    #     flash("You can't logout because you aren't logged in. Please login")
+    #     return redirect("/login")
+    # else:
+    flash("Goodbye")
     del(session['current_user'])
-
     return render_template("logout.html")
 
 
