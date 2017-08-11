@@ -118,8 +118,19 @@ def user(user_id):
         flash("User %s not found." % user_id)
         return redirect("/login")
 
-    return render_template("profile.html",
-                          user=user)
+    return render_template("profile.html", user=user)
+
+
+@app.route("/display/<art_id>")
+def art(art_id):
+    """Generates the display page for each artwork in db."""
+
+    art = Art.query.filter_by(art_id=art_id).first()
+    # if art == None:
+    #     flash("Artwork %s not yet added to the db." % art_id)
+    #     return redirect("/")
+
+    return render_template("display.html", art=art)
 
 ################################################################################
 

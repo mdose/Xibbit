@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2> {{ art.title }}</h2>
+
+    <div>
+      <img src="{{ art.image_url }}">
+      <br>
+      Title: <i>{{ art.title }}</i>
+      <br> 
+      Date: {{ art.year }} - {{ art.year_range}} {{ art.year_description}}
+      <br>
+      Medium: {{ art.medium }}
+      <br> 
+      Dimensions: {{ art.height_cm}}cm x {{art.width_cm}}cm
+      <br>
+      Description: {{ art.description }}
+
+    </div>
+
+
+<!-- Example code for how to pontentially figure out "starring" logic in ratings project -->
+  
+
+{% endblock %}
