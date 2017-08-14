@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>ArtWorks</h2>
+    <ul>
+      {% for art in artworks %}
+          <li>
+              <a href="/artworks/{{ art.art_id }}">
+                {{ art.title }} ({{ art.art_id }})
+              </a>
+          </li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}

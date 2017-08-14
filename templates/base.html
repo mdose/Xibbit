@@ -6,8 +6,6 @@
   crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/art.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <!-- <link rel="stylesheet" href="/static/css/party.css">
- -->  
 </head>
 
 <body>
@@ -17,14 +15,17 @@
     <li>{{ message }}</li>
   {% endfor %}
   </ul>
-  <!-- toggle the login/logout button with jQuery. -->
-  <center>
+    <center>
+    {% if session.get('current_user') %}
+    <button><a href="/">Home</a></button>
+    <button><a href="/users/{{ session.get('current_user') }}">Profile</a></button>
+    <button><a href="/logout">Logout </a></button>
+    {% else %}
     <button><a href="/">Home</a></button>
     <button><a href="/register">Register </a></button>
     <button><a href="/login">Login</a></button>
-    <button><a href="/logout">Logout </a></button>
-    <!-- Figure out how to insert <user_id> from cookie session into Profile button  -->
-    <button><a href="/users/{{ session.get('current_user') }}">Profile</a></button>
+    {% endif %}
+    <button><a href="/artworks">Art</a></button>
   </center>
 
   {% block content %}

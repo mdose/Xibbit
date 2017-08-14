@@ -11,24 +11,35 @@
       <div class="row">
         <div class="col-xs-offset-2 col-xs-5">
           <br>
-          Title: <i>{{ art.title }}</i>
+          <Strong>Title:</strong> <i>{{ art.title }}</i>
           <br> 
-          Date: {{ art.year }} - {{ art.year_range}} {{ art.year_description}}
+          <strong>Artist:</strong> {{ art.artists }}
           <br>
-          Medium: {{ art.medium }}
+          <strong>Date:</strong>
+          {% if art.circa == True %}
+            c. {{ art.year }} - {{ art.year_range}} {{ art.year_description}}
+          {% else %}
+            {{ art.year }} - {{ art.year_range}} {{ art.year_description}}
+          {% endif %}
+          <br>
+          <strong>Medium:</strong> {{ art.medium }}
           <br> 
-          Dimensions: {{ art.height_cm}}cm x {{art.width_cm}}cm
+          {% if art.wide_cm is none %}
+          <strong>Dimensions:</strong>{{ art.height_cm}}cm 
+          {% else %}
+          <strong>Dimensions:</strong>{{ art.height_cm}}cm x {{art.width_cm}}cm
+          {% endif %}
           <br>
         </div>
         <div class="col-xs-5">
           <br>
-          Museum: {{ art.collection.name }}, {{ art.collection.location }}
+          <strong>Museum:</strong> {{ art.collection.name }}, {{ art.collection.location }}
           <br>
-          Art Type: {{ art.art_type.art_type }}
+          <strong>Type of art:</strong> {{ art.art_type.art_type }}
           <br>
-          Art Movement: {{ art.art_movement.movement_name }}
+          <strong>Art Movement:</strong> {{ art.art_movement.movement_name }}
           <br> 
-          Subject Matter: {{ art.subject_matter.category }}
+          <strong>Subject Matter:</strong> {{ art.subject_matter.category }}
         </div>
       </div>
     </div>

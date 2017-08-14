@@ -199,10 +199,10 @@ class ArtistArt(db.Model):
 
     __tablename__ = "artists_artworks"
 
-    artrist_art_id = db.Column(db.Integer,
-                               primary_key=True,
-                               autoincrement=True,
-                               nullable=False)
+    artist_art_id = db.Column(db.Integer,
+                              primary_key=True,
+                              autoincrement=True,
+                              nullable=False)
     artist_id = db.Column(db.Integer, db.ForeignKey('artists.artist_id'), nullable=False)
     art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
 

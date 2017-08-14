@@ -121,6 +121,14 @@ def user(user_id):
     return render_template("profile.html", user=user)
 
 
+@app.route('/artworks')
+def art_list():
+    """Show list of artworks in db"""
+
+    artworks = Art.query.all()
+    return render_template("art_list.html", artworks=artworks)
+
+
 @app.route("/artworks/<art_id>")
 def art(art_id):
     """Generates the display page for each artwork in db."""
