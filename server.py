@@ -83,8 +83,8 @@ def process_login_form():
     if user and user.email == email and user.password == password:
         session['current_user'] = user.user_id
         flash("Logged in as %s" % user.username)
-        return render_template("profile.html", user=user)
-        # return redirect("/users/<user_id>")
+        # return render_template("profile.html", user=user)
+        return redirect("/users/" + str(user.user_id))
         # getting data error invalid input syntax for integer: when I try to
         # redirect to this route, but works with rendering template. Why?
     else:
@@ -121,7 +121,7 @@ def user(user_id):
     return render_template("profile.html", user=user)
 
 
-@app.route("/display/<art_id>")
+@app.route("/artworks/<art_id>")
 def art(art_id):
     """Generates the display page for each artwork in db."""
 
@@ -130,7 +130,7 @@ def art(art_id):
     #     flash("Artwork %s not yet added to the db." % art_id)
     #     return redirect("/")
 
-    return render_template("display.html", art=art)
+    return render_template("artworks.html", art=art)
 
 ################################################################################
 
