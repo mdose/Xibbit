@@ -140,6 +140,25 @@ def art(art_id):
 
     return render_template("artworks.html", art=art)
 
+@app.route('/artists')
+def artist_list():
+    """Show list of artist in db"""
+
+    artists = Artist.query.all()
+    return render_template("artist_list.html", artists=artists)
+
+
+@app.route("/artists/<artist_id>")
+def artist(artist_id):
+    """Generates the display page for each artist in db."""
+
+    artist = Artist.query.filter_by(artist_id=artist_id).first()
+    # if art == None:
+    #     flash("Artwork %s not yet added to the db." % art_id)
+    #     return redirect("/")
+
+    return render_template("artists.html", art=art)
+
 ################################################################################
 
 if __name__ == "__main__":
