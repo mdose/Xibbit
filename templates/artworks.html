@@ -14,8 +14,12 @@
           <Strong>Title:</strong> <i>{{ art.title }}</i>
           <br> 
           <strong>Artist:</strong> 
-          {% for artist in  art.artists %}
-            {{artist.primary_name}}
+          {% for artist in art.artists %}
+            {% if artist.secondary_name == None %}
+              {{ artist.primary_name }}
+            {% else %}
+              {{artist.primary_name}} {{artist.secondary_name}}
+            {% endif %}
           {% endfor %}
           <br>
           <strong>Date:</strong>
@@ -28,7 +32,7 @@
           <br>
           <strong>Medium:</strong> {{ art.medium }}
           <br> 
-          {% if art.wide_cm is none %}
+          {% if art.width_cm == None %}
           <strong>Dimensions:</strong> {{ art.height_cm}}cm 
           {% else %}
           <strong>Dimensions:</strong> {{ art.height_cm}}cm x {{art.width_cm}}cm
