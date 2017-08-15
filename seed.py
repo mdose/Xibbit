@@ -7,7 +7,7 @@ from model import ArtType
 from model import Collection
 from model import ArtMovement
 from model import SubjectMatter
-# from model import ArtistArt
+from model import ArtistArt
 # from model import UserArt
 # from model import UserArtist
 # from model import UserCollection
@@ -48,6 +48,7 @@ def load_art():
         collection_id = row[12]
         art_movement_id = row[13]
         subject_matter_id = row[14]
+        artist_id = row[15]
 
         art = Art(art_id=art_id, title=title, image_url=image_url, circa=circa,
                   year=year, year_range=year_range, year_description=year_description,
@@ -55,12 +56,19 @@ def load_art():
                   width_cm=width_cm, art_type_id=art_type_id, collection_id=collection_id,
                   art_movement_id=art_movement_id, subject_matter_id=subject_matter_id)
 
-
         # We need to add to the session or it won't ever be stored
         db.session.add(art)
 
-    # Once we're done, we should commit our work
-    db.session.commit()
+        # Once we're done, we should commit our work
+        db.session.commit()
+
+        new_artist_artwork = ArtistArt(art_id=art_id, artist_id=artist_id)
+
+        print "Artists Artworks"
+
+        db.session.add(new_artist_artwork)
+
+        db.session.commit()
 
 
 def load_artists():
@@ -190,6 +198,7 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # In case tables haven't been created, create them
+    db.drop_all()
     db.create_all()
 
     # Import different types of data
@@ -197,5 +206,5 @@ if __name__ == "__main__":
     load_collections()
     load_art_movements()
     load_subject_matters()
-    load_art()
     load_artists()
+    load_art()

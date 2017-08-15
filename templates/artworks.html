@@ -13,9 +13,13 @@
           <br>
           <Strong>Title:</strong> <i>{{ art.title }}</i>
           <br> 
-          <strong>Artist:</strong> {{ art.artists }}
+          <strong>Artist:</strong> 
+          {% for artist in  art.artists %}
+            {{artist.primary_name}}
+          {% endfor %}
           <br>
           <strong>Date:</strong>
+          <!-- WIP on getting the date conditions right -->
           {% if art.circa == True %}
             c. {{ art.year }} - {{ art.year_range}} {{ art.year_description}}
           {% else %}
@@ -25,9 +29,9 @@
           <strong>Medium:</strong> {{ art.medium }}
           <br> 
           {% if art.wide_cm is none %}
-          <strong>Dimensions:</strong>{{ art.height_cm}}cm 
+          <strong>Dimensions:</strong> {{ art.height_cm}}cm 
           {% else %}
-          <strong>Dimensions:</strong>{{ art.height_cm}}cm x {{art.width_cm}}cm
+          <strong>Dimensions:</strong> {{ art.height_cm}}cm x {{art.width_cm}}cm
           {% endif %}
           <br>
         </div>
@@ -35,7 +39,7 @@
           <br>
           <strong>Museum:</strong> {{ art.collection.name }}, {{ art.collection.location }}
           <br>
-          <strong>Type of art:</strong> {{ art.art_type.art_type }}
+          <strong>Type:</strong> {{ art.art_type.art_type }}
           <br>
           <strong>Art Movement:</strong> {{ art.art_movement.movement_name }}
           <br> 
