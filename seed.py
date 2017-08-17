@@ -90,10 +90,12 @@ def load_artists():
         death_year = row[4] if row[4] else None
         bio = row[5]
         image_url = row[6] if row[6] else None
+        image_caption = row[7] if row[7] else None
 
         artist = Artist(artist_id=artist_id, primary_name=primary_name,
                         secondary_name=secondary_name, birth_year=birth_year,
-                        death_year=death_year, bio=bio, image_url=image_url)
+                        death_year=death_year, bio=bio, image_url=image_url,
+                        image_caption=image_caption)
 
         db.session.add(artist)
 

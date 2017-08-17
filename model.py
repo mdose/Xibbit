@@ -84,13 +84,14 @@ class Artist(db.Model):
     death_year = db.Column(db.Integer, nullable=True)
     bio = db.Column(db.String(10000), nullable=False)
     image_url = db.Column(db.String(1000), nullable=True)
+    image_caption = db.Column(db.String(10000), nullable=True)
 
     def __repr__(self):
         """Info on artists"""
 
-        return "<Artist id: {}, Name: {}, {}, Lifespan: {} - {}, Bio: {}, Image: {}>".format(
+        return "<Artist id: {}, Name: {}, {}, Lifespan: {} - {}, Bio: {}, Image: {}, Caption: {}>".format(
             self.artist_id, self.primary_name, self.secondary_name, self.birth_year,
-            self.death_year, self.bio, self.image_url)
+            self.death_year, self.bio, self.image_url, self.image_caption)
 
 
 class User(db.Model):

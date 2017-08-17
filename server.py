@@ -140,6 +140,7 @@ def art(art_id):
 
     return render_template("artworks.html", art=art)
 
+
 @app.route('/artists')
 def artist_list():
     """Show list of artist in db"""
@@ -157,7 +158,7 @@ def artist(artist_id):
     #     flash("Artwork %s not yet added to the db." % art_id)
     #     return redirect("/")
 
-    return render_template("artists.html", art=art)
+    return render_template("artists.html", artist=artist)
 
 ################################################################################
 

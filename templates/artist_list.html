@@ -6,7 +6,11 @@
       {% for artist in artists %}
           <li>
               <a href="/artists/{{ artist.artist_id }}">
-                {{ artist.primary_name }} {{ artist.secondary_name }} ({{ artist.artist_id }})
+                {% if artist.secondary_name == None %}
+                  {{ artist.primary_name }}
+                {% else %}
+                  {{artist.primary_name}} {{artist.secondary_name}}
+                {% endif %}
               </a>
           </li>
       {% endfor %}

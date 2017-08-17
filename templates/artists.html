@@ -1,7 +1,7 @@
-% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
-    <h2 class="title">
+    <h2 class="artist-name">
       <center> 
         {% if artist.secondary_name == None %}
           {{ artist.primary_name }}
@@ -13,11 +13,23 @@
 
     <div class="container-fluid">
       <div class="row">
+        {% if artist.image_url == None and artist.image_caption == "No image" %}
+        <center><i class="fa fa-id-card-o fa-5x" padding="10px" aria-hidden="true"></i></center>
+        <center>Sorry.  {{ artist.image_caption }} of this artist exists.</center>
+        {% elif artist.image_url == None %}
+        <center> 
+          <br> 
+          <span class="glyphicon glyphicon-question-sign fa-5x"></span>
+          <br>
+        </center>
+        {% else %}
         <center><img src="{{ artist.image_url }}" height="400" padding="10px"></center>
+        <center><p> {{artist.image_caption }} </p></center>
+        {% endif %}
       </div>
       
       <div class="row">
-        <div class="col-xs-offset-2 col-xs-5">
+        <div class="col-xs-offset-4 col-xs-5">
           <br> 
           <strong>Artist:</strong> 
           {% if artist.secondary_name == None %}
@@ -27,15 +39,16 @@
           {% endif %}
           <br>
 
+          {% if artist.birth_year != None%}
           <strong>Lifespan:</strong>
-          <!-- WIP on getting the date conditions right -->
-          {% if artist.birth_year != None and artist.death_year != None %}
-            {{ artist.birth_year }} - {{ artist.death_year}}
-          {% elif artist.birth_year != None %}
-            {{ artist.birth_year }}
-          {% endif %}
+          <!-- 2.0 Expand date conditions to be like it is for art. -->
+            {% if artist.birth_year != None and artist.death_year != None %}
+              {{ artist.birth_year }} - {{ artist.death_year}}
+            {% elif artist.birth_year != None %}
+              {{ artist.birth_year }}
+            {% endif %}
           <br>
-
+          {% endif %}
         </div>
       </div>
     </div>
