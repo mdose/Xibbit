@@ -1,6 +1,6 @@
 """Utility file to seed masterpieces database from seed_data/"""
 
-# from sqlalchemy import func
+from sqlalchemy import func
 from model import Art
 from model import Artist
 from model import ArtType
@@ -8,6 +8,7 @@ from model import Collection
 from model import ArtMovement
 from model import SubjectMatter
 from model import ArtistArt
+from model import User
 # from model import UserArt
 # from model import UserArtist
 # from model import UserCollection
@@ -176,22 +177,41 @@ def load_subject_matters():
     db.session.commit()
 
 
+def load_users():
+    """Load test users from u.user into database"""
+
+    print "Users"
+
+    User.query.delete()
+
+    for row in open("seed_data/u.users"):
+        row = row.rstrip("\n").strip(chr(13))
+        row = row.split("\t")
+        user_id, email, password, username = row
+
+        user = User(user_id=user_id, email=email, password=password,
+                    username=username)
+        db.session.add(user)
+
+    db.session.commit()
+
+
+def set_val_user_id():
+    """Set value for the next user_id after seeding database"""
+
+    # Get the Max user_id in the database
+    result = db.session.query(func.max(User.user_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('users_user_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
+
 ##############################################################################
-# for 3.0 add more info to db forms; the solution below is for if it's just one
+# for 3.0 add more info to db forms; the "set_val_user_id" is for if it's just one
 # table. If more than one, Katie has a solution to make more d.r.y. with special
 # func she sent via Slack!
-
-# def set_val_user_id():
-#     """Set value for the next user_id after seeding database"""
-
-#     # Get the Max user_id in the database
-#     result = db.session.query(func.max(User.user_id)).one()
-#     max_id = int(result[0])
-
-#     # Set the value for the next user_id to be max_id + 1
-#     query = "SELECT setval('users_user_id_seq', :new_id)"
-#     db.session.execute(query, {'new_id': max_id + 1})
-#     db.session.commit()
 
 
 if __name__ == "__main__":
@@ -208,3 +228,5 @@ if __name__ == "__main__":
     load_subject_matters()
     load_artists()
     load_art()
+    load_users()
+    set_val_user_id()

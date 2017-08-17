@@ -41,7 +41,6 @@ def process_registration_form():
     password = request.form.get("password")
     username = request.form.get("username")
 
-
 # Maybe 2.0: Improve form validations wtih regular expressions
     if User.query.filter(User.email == email).first():
         flash("You are already registered, please log in.")
