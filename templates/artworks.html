@@ -17,9 +17,9 @@
           <strong>Artist:</strong> 
           {% for artist in art.artists %}
             {% if artist.secondary_name == None %}
-              {{ artist.primary_name }}
+              <a href="/artists/{{ artist.artist_id }}">{{ artist.primary_name }}</a>
             {% else %}
-              {{artist.primary_name}} {{artist.secondary_name}}
+              <a href="/artists/{{ artist.artist_id }}">{{artist.primary_name}} {{artist.secondary_name}}</a>
             {% endif %}
           {% endfor %}
           <br>

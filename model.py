@@ -46,7 +46,6 @@ class Art(db.Model):
                                   db.ForeignKey('subject_matters.subject_matter_id'),
                                   nullable=False)
 
-
     # establishes relationship thanks to the Foreign Key
     collection = db.relationship('Collection', backref='artworks')
     art_type = db.relationship('ArtType', backref='artworks')

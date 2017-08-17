@@ -29,7 +29,7 @@
       </div>
       
       <div class="row">
-        <div class="col-xs-offset-4 col-xs-5">
+        <div class="col-xs-offset-3 col-xs-4">
           <br> 
           <strong>Artist:</strong> 
           {% if artist.secondary_name == None %}
@@ -49,6 +49,18 @@
             {% endif %}
           <br>
           {% endif %}
+        </div>
+
+        <div class="col-xs-offset-7">
+          <br>
+          <strong>List of Artworks:</strong>
+          <br>
+          {% for artwork in artist.artworks %}
+              <ul>
+                <li> <a href="/artworks/{{ artwork.art_id }}">{{ artwork.title }}</a></li>
+              </ul>
+          {% endfor %}
+          <br>
         </div>
       </div>
     </div>
