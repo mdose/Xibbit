@@ -54,9 +54,10 @@ def process_registration_form():
         new_user = User(email=email, password=password, username=username)
         db.session.add(new_user)
         db.session.commit()
+        user = User.query.filter(User.email == email).first()
         session['current_user'] = new_user.user_id
-        flash('You were successfully registered, please login.')
-        return redirect("/login")
+        flash('You were successfully registered and logged in.')
+        return redirect("/users/" + str(user.user_id))
 
     # return redirect('/')
 
