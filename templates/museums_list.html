@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>Museums</h2>
+    <ul>
+      {% for collection in collections %}
+          <li>
+              <a href="/collections/{{ collection.collection_id }}">
+                {{ collection.name }} ({{ collection.location }})
+              </a>
+          </li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}

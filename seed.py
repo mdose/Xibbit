@@ -130,10 +130,10 @@ def load_collections():
     for row in open("seed_data/u.collections"):
         row = row.rstrip("\n").strip(chr(13))
         row = row.split("\t")
-        collection_id, name, location = row
+        collection_id, name, location, image_url = row
 
         collection = Collection(collection_id=collection_id, name=name,
-                                location=location)
+                                location=location, image_url=image_url)
         db.session.add(collection)
 
     db.session.commit()

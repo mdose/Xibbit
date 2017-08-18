@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2 class="museum-name">
+      <center> 
+        {{ collection.name }}
+      </center>
+    </h2>
+
+    <div class="container-fluid">
+      <div class="row">
+        <center><img src="{{ collection.image_url }}" height="400" padding="10px"></center>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-offset-3 col-xs-4">
+          <br> 
+          <strong>Name:</strong> 
+            {{ collection.name }}
+          <br>
+          <strong>Location:</strong>
+            {{ collection.location }}
+        </div>
+
+        <div class="col-xs-offset-7">
+          <br>
+          <strong>List of Artworks:</strong>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+
+<!-- Example code for how to pontentially figure out "starring" logic in ratings project -->
+  
+
+{% endblock %}

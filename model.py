@@ -147,12 +147,13 @@ class Collection(db.Model):
                               nullable=False)
     name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(50), nullable=False)
+    image_url = db.Column(db.String(500), nullable=True)
 
     def __repr__(self):
         """Info on museum or collection the artwork belongs to"""
 
-        return "<Collection id: {}, Institution name: {}, Location: {}>".format(
-            self.collection_id, self.name, self.location)
+        return "<Collection id: {}, Institution name: {}, Location: {}, Image_URL: {}>".format(
+            self.collection_id, self.name, self.location, self.image_url)
 
 
 class ArtMovement(db.Model):
@@ -226,7 +227,6 @@ class UserArt(db.Model):
     art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
     # list_id (2.0)
 
-
     def __repr__(self):
         """Info on the User/Art Table"""
 
@@ -246,7 +246,6 @@ class UserArtist(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     artist_id = db.Column(db.Integer, db.ForeignKey('artists.artist_id'), nullable=False)
     # list_id (2.0)
-
 
     def __repr__(self):
         """Info on the User/Artist Table"""
@@ -268,7 +267,6 @@ class UserCollection(db.Model):
     collection_id = db.Column(db.Integer, db.ForeignKey('collections.collection_id'),
                               nullable=False)
     # list_id (2.0)
-
 
     def __repr__(self):
         """Info on the User/Collection Table"""
