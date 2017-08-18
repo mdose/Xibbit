@@ -25,6 +25,12 @@
         <div class="col-xs-offset-7">
           <br>
           <strong>List of Artworks:</strong>
+          {% for art in collection.artworks %}
+              <ul>
+                <li> <a href="/artworks/{{ art.art_id }}">{{ art.title }}</a>
+                </li>
+              </ul>
+          {% endfor %}
           <br>
           <br>
         </div>

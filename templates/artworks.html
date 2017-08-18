@@ -54,7 +54,8 @@
 
         <div class="col-xs-5">
           <br>
-          <strong>Museum:</strong> {{ art.collection.name }}, {{ art.collection.location }}
+          <strong>Museum:</strong> 
+          <a href="/collections/{{ art.collection.collection_id }}"> {{ art.collection.name }}, {{ art.collection.location }} </a>
           <br>
 
           <strong>Art Movement:</strong> {{ art.art_movement.movement_name }}
