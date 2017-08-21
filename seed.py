@@ -9,7 +9,7 @@ from model import ArtMovement
 from model import SubjectMatter
 from model import ArtistArt
 from model import User
-# from model import UserArt
+from model import UserArt
 # from model import UserArtist
 # from model import UserCollection
 

@@ -305,11 +305,11 @@ class UserCollection(db.Model):
 ##############################################################################
 # Helper functions
 
-def connect_to_db(app):
+def connect_to_db(app, database='postgres:///masterpieces'):
     """Connect the database to our Flask app."""
 
     # Configure to use our database.
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///masterpieces'
+    app.config['SQLALCHEMY_DATABASE_URI'] = database
     app.config['SQLALCHEMY_ECHO'] = False
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
