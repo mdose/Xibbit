@@ -19,7 +19,7 @@ app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/')
-def index():
+def show_index():
     """Homepage."""
     # print session
     return render_template("homepage.html")
@@ -27,7 +27,7 @@ def index():
 
 # Figure out how to combine registrartion and login forms onto the same page/popup
 @app.route('/register', methods=["GET"])
-def register_form():
+def show_register_form():
     """Getting User Info from form"""
 
     return render_template("register_form.html")
@@ -62,7 +62,7 @@ def process_registration_form():
 
 
 @app.route("/login", methods=["GET"])
-def login_form():
+def show_login_form():
     """Displays login form."""
 
     return render_template("login_form.html")
@@ -97,7 +97,7 @@ def process_login_form():
 # intial ideas include toggling the button with jQuery and/or redirecting to homepage
 # with flash message stating that user is not logged in.
 @app.route("/logout")
-def logout():
+def show_logout():
     """Logout"""
 
     # if 'current_user' == None:
@@ -110,7 +110,7 @@ def logout():
 
 
 @app.route("/users/<user_id>")
-def user(user_id):
+def show_user(user_id):
     """Generates the profile page for each user in db."""
 
     user = User.query.filter_by(user_id=user_id).first()
@@ -122,7 +122,7 @@ def user(user_id):
 
 
 @app.route('/artworks')
-def art_list():
+def show_art_list():
     """Show list of artworks in db"""
 
     artworks = Art.query.all()
@@ -130,7 +130,7 @@ def art_list():
 
 
 @app.route("/artworks/<art_id>")
-def art(art_id):
+def show_art(art_id):
     """Generates the display page for each artwork in db."""
 
     art = Art.query.filter_by(art_id=art_id).first()
@@ -142,7 +142,7 @@ def art(art_id):
 
 
 @app.route('/artists')
-def artist_list():
+def show_artist_list():
     """Show list of artists in db"""
 
     artists = Artist.query.all()
@@ -150,7 +150,7 @@ def artist_list():
 
 
 @app.route("/artists/<artist_id>")
-def artist(artist_id):
+def show_artist(artist_id):
     """Generates the display page for each artist in db."""
 
     artist = Artist.query.filter_by(artist_id=artist_id).first()
@@ -158,7 +158,7 @@ def artist(artist_id):
 
 
 @app.route('/collections')
-def collection_list():
+def show_collection_list():
     """Show list of collections in db"""
 
     collections = Collection.query.all()
@@ -166,7 +166,7 @@ def collection_list():
 
 
 @app.route("/collections/<collection_id>")
-def collection(collection_id):
+def show_collection(collection_id):
     """Generates the display page for each collection in db."""
 
     collection = Collection.query.filter_by(collection_id=collection_id).first()
