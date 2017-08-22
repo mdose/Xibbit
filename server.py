@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import (Flask, render_template, redirect, request, flash, session)
+from flask import (Flask, render_template, redirect, request, flash, session, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import (Art, Artist, User, ArtType, Collection, ArtMovement,
@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.secret_key = "IDKAnythingreally"
 
 app.jinja_env.undefined = StrictUndefined
-
+app.jinja_env.auto_reload = True
 
 @app.route('/', methods=["GET"])
 def show_index():
@@ -30,9 +30,10 @@ def search_db():
     """Query that searches the Database"""
 
     # TODO: Account for so, so many edge cases.
+    # TODO: Create search results tempalate instead of redirecting to one page
 
     search = request.form.get("search")
-    art = Art.query.filter(Art.title == search).first()
+    art = Art.query.filter(Art.title == search).all()
     # artist = Artist.query.filter(Artist.primary_name == search).first()
     # museum = Collection.query.filter(Collection.name == search).first()
 
@@ -43,7 +44,7 @@ def search_db():
     # elif museum:
     #     return redirect("/collections/" + str(museum.collection_id))
     else:
-        flash("I'm sorry, that term has not been added to the database. Please search again")
+        flash("I'm sorry, that term has not been added to the database. Please search again.")
         return redirect("/")
 
 
@@ -144,6 +145,20 @@ def show_user(user_id):
 
     return render_template("profile.html", user=user)
 
+@app.route("/toggle.json")
+def toggle_fav_art_to_db():
+    """Toggle art favorited by a user to to UserArt Table"""
+
+    art_id = request.args.get("art_id")
+
+    if UserArt.query.filter_by(user_id=session['current_user'], art_id=art_id).first():
+        remove from db
+    else:
+        add to db
+    
+    result = "Success!"
+    
+    return result
 
 @app.route('/artworks')
 def show_art_list():

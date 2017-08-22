@@ -8,8 +8,11 @@
         <center><img src="{{ art.image_url }}" height="400" padding="10px"></center>
         <br>
         <center>
-          <button type="button" class="btn btn-default btn-md" style="text-align:right">
-            <span class="glyphicon glyphicon-star-empty"></span> Favorite
+
+          <!-- TODO: Jinja Logic to show filled in star if user already faved -->
+          <button type="button" id="favorite-btn" class="btn btn-default btn-md" style="text-align:right">
+            <span class="glyphicon glyphicon-star-empty" id="unfavorited"></span> Favorite
+<!--             <span class="glyphicon glyphicon-star" id="favorited"></span> Favorite --> 
           </button>
         </center>
       </div>
@@ -19,6 +22,8 @@
           <br>
           <Strong>Title:</strong> <i>{{ art.title }}</i>
           <br> 
+
+          <input type="hidden" id="hidden_art_id" value="{{ art.art_id }}">
 
           <strong>Artist:</strong> 
           {% for artist in art.artists %}
