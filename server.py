@@ -18,11 +18,33 @@ app.secret_key = "IDKAnythingreally"
 app.jinja_env.undefined = StrictUndefined
 
 
-@app.route('/')
+@app.route('/', methods=["GET"])
 def show_index():
     """Homepage."""
-    # print session
+
     return render_template("homepage.html")
+
+
+@app.route('/', methods=["POST"])
+def search_db():
+    """Query that searches the Database"""
+
+    # TODO: Account for so, so many edge cases.
+
+    search = request.form.get("search")
+    art = Art.query.filter(Art.title == search).first()
+    # artist = Artist.query.filter(Artist.primary_name == search).first()
+    # museum = Collection.query.filter(Collection.name == search).first()
+
+    if art:
+        return redirect("/artworks/" + str(art.art_id))
+    # elif artist:
+    #     return redirect("/artists/" + str(artist.artist_id))
+    # elif museum:
+    #     return redirect("/collections/" + str(museum.collection_id))
+    else:
+        flash("I'm sorry, that term has not been added to the database. Please search again")
+        return redirect("/")
 
 
 # Figure out how to combine registrartion and login forms onto the same page/popup
