@@ -40,7 +40,7 @@ class FlaskTest(unittest.TestCase):
 
         with self.client as c:
             with c.session_transaction() as sess:
-                sess['user_id'] = 2
+                sess['current_user'] = 1
 
     def tearDown(self):
         """Things to do after every test."""
@@ -81,13 +81,13 @@ class FlaskTest(unittest.TestCase):
                                   follow_redirects=True)
         self.assertNotIn("Login here", result.data)
 
-    # def test_logout(self):
-    #     """Tests the /logout route"""
+    def test_logout(self):
+        """Tests the /logout route"""
     # FIXME: Figure out how to make this work. (It has sessions)
-
-    #     result = self.client.get('/logout')
-    #     # self.assertEqual(result.status_code, 200)
-    #     # self.assertIn("You are now logged out.", result.data)
+        
+        result = self.client.get('/logout')
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("You are now logged out.", result.data)
 
     def test_show_user(self):
         """Tests the "/users/<user_id>"route."""

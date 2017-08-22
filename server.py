@@ -81,6 +81,8 @@ def process_login_form():
     # print user.email, user.password
 
     if user and user.email == email and user.password == password:
+        # Posssible instead of "current_user" to directly get user_id and email from
+        # session dict (Refactoring?). Would also have to change/reverse it on logout.
         session['current_user'] = user.user_id
         flash("Logged in as %s" % user.username)
         # return render_template("profile.html", user=user)
