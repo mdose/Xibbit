@@ -4,7 +4,7 @@
 function toggleButton(evt) {
     // Specifically toggles button from empty to filled star
     // AJAX success function
-    var glyphicon = $("#unfavorited");
+    var glyphicon = $("#favorite");
     // JQUERY looks at the span (not button), since that's what's changing
     
     if (glyphicon.hasClass('glyphicon-star-empty')) {
@@ -28,7 +28,7 @@ function toggleFavoriteArt(evt) {
 
     var art_id = $("#hidden_art_id").val() 
     // passes (unique) art_id from jinja/html to js using the .val() func
-    $.get("/toggle.json", {"art_id": art_id}, toggleButton};
+    $.get("/toggle.json", {"art_id": art_id}, toggleButton);
     //AJAX get request: goes to special /toggle route (to avoid confusion of 
     // "/artworks/" + $("#hidden_art_id").val() + ".json" URL complexities to Flask), 
     // passes OPTIONAL get info to the server (here we pass the art_id pulled from Jinja

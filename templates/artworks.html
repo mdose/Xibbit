@@ -11,8 +11,11 @@
 
           <!-- TODO: Jinja Logic to show filled in star if user already faved -->
           <button type="button" id="favorite-btn" class="btn btn-default btn-md" style="text-align:right">
-            <span class="glyphicon glyphicon-star-empty" id="unfavorited"></span> Favorite
-<!--             <span class="glyphicon glyphicon-star" id="favorited"></span> Favorite --> 
+            {% if is_favorited %}
+              <span class="glyphicon glyphicon-star" id="favorite"></span> Favorite 
+            {% else %}
+              <span class="glyphicon glyphicon-star-empty" id="favorite"></span> Favorite
+            {% endif %}
           </button>
         </center>
       </div>

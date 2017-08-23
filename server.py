@@ -18,6 +18,7 @@ app.secret_key = "IDKAnythingreally"
 app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
 
+
 @app.route('/', methods=["GET"])
 def show_index():
     """Homepage."""
@@ -139,26 +140,42 @@ def show_user(user_id):
     """Generates the profile page for each user in db."""
 
     user = User.query.filter_by(user_id=user_id).first()
-    if user == None:
+    if user is None:
         flash("User %s not found." % user_id)
         return redirect("/login")
 
     return render_template("profile.html", user=user)
+
 
 @app.route("/toggle.json")
 def toggle_fav_art_to_db():
     """Toggle art favorited by a user to to UserArt Table"""
 
     art_id = request.args.get("art_id")
+    user_id = session['current_user']
+    # user_list = []
 
-    if UserArt.query.filter_by(user_id=session['current_user'], art_id=art_id).first():
-        remove from db
+    # getting art_id via js object key rather than "name" HTML element
+
+    favorite = UserArt.query.filter_by(user_id=user_id, art_id=art_id).first()
+
+    if favorite:
+        # If favorite already exists in db for this user, remove it
+        # user_list.artworks.pop(favorite)
+        db.session.delete(favorite)
+        db.session.commit()
+
     else:
-        add to db
-    
+        new_favorite = UserArt(user_id=user_id, art_id=art_id)
+        # If favorite already exists in db for this user, add it
+        # user_list.artworks.append(favorite)
+        db.session.add(new_favorite)
+        db.session.commit()
+
     result = "Success!"
-    
+
     return result
+
 
 @app.route('/artworks')
 def show_art_list():
@@ -173,11 +190,14 @@ def show_art(art_id):
     """Generates the display page for each artwork in db."""
 
     art = Art.query.filter_by(art_id=art_id).first()
+    user_id = session['current_user']
+    favorite = UserArt.query.filter_by(user_id=user_id, art_id=art_id).first()
+    is_favorited = favorite is not None
     # if art == None:
     #     flash("Artwork %s not yet added to the db." % art_id)
     #     return redirect("/")
 
-    return render_template("artworks.html", art=art)
+    return render_template("artworks.html", art=art, is_favorited=is_favorited)
 
 
 @app.route('/artists')
