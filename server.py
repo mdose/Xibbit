@@ -34,22 +34,18 @@ def search_db():
     # TODO: Create search results tempalate instead of redirecting to one page
 
     search = request.form.get("search")
-    art = Art.query.filter(Art.title == search).all()
-    # artist = Artist.query.filter(Artist.primary_name == search).first()
-    # museum = Collection.query.filter(Collection.name == search).first()
+    artworks = Art.query.filter(Art.title == search).all()
+    artists = Artist.query.filter(Artist.primary_name == search).all()
+    museums = Collection.query.filter(Collection.name == search).all()
 
-    if art:
-        return redirect("/artworks/" + str(art.art_id))
-    # elif artist:
-    #     return redirect("/artists/" + str(artist.artist_id))
-    # elif museum:
-    #     return redirect("/collections/" + str(museum.collection_id))
+    if artworks or artists or museums:
+        return render_template("results.html", search=search, artworks=artworks,
+                               artists=artists, museums=museums)
     else:
         flash("I'm sorry, that term has not been added to the database. Please search again.")
         return redirect("/")
 
 
-# Figure out how to combine registrartion and login forms onto the same page/popup
 @app.route('/register', methods=["GET"])
 def show_register_form():
     """Getting User Info from form"""
@@ -82,8 +78,6 @@ def process_registration_form():
         flash('You were successfully registered and logged in.')
         return redirect("/users/" + str(user.user_id))
 
-    # return redirect('/')
-
 
 @app.route("/login", methods=["GET"])
 def show_login_form():
@@ -100,9 +94,6 @@ def process_login_form():
     email = request.form['email']
     password = request.form['password']
     user = User.query.filter(User.email == email).first()
-    #user_id = User.query.filter_by(user_id=user_id).first()
-
-    # print user.email, user.password
 
     if user and user.email == email and user.password == password:
         # Posssible instead of "current_user" to directly get user_id and email from
@@ -111,25 +102,16 @@ def process_login_form():
         flash("Logged in as %s" % user.username)
         # return render_template("profile.html", user=user)
         return redirect("/users/" + str(user.user_id))
-        # getting data error invalid input syntax for integer: when I try to
-        # redirect to this route, but works with rendering template. Why?
+
     else:
         flash("Incorrect user or password.")
         return redirect("/login")
 
 
-# Figure out how to handle edge case when someone clicks this button and there is
-# no cookie session.
-# intial ideas include toggling the button with jQuery and/or redirecting to homepage
-# with flash message stating that user is not logged in.
 @app.route("/logout")
 def show_logout():
     """Logout"""
 
-    # if 'current_user' == None:
-    #     flash("You can't logout because you aren't logged in. Please login")
-    #     return redirect("/login")
-    # else:
     flash("Goodbye")
     del(session['current_user'])
     return render_template("logout.html")
