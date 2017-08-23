@@ -21,14 +21,14 @@ function toggleButton(evt) {
 }
 
 function toggleFavoriteArt(evt) {
-    // Add favorited Art to the DB on the UserArt Table
+    // Favor and unfavor Art to the DB on the UserArt Table
 
     evt.preventDefault();
     // keeps page from reloading right away
 
-    var art_id = $("#hidden_art_id").val() 
+    var art_id = $("#hidden_art_id").val();
     // passes (unique) art_id from jinja/html to js using the .val() func
-    $.get("/toggle.json", {"art_id": art_id}, toggleButton);
+    $.get("/toggle/art.json", {"art_id": art_id}, toggleButton);
     //AJAX get request: goes to special /toggle route (to avoid confusion of 
     // "/artworks/" + $("#hidden_art_id").val() + ".json" URL complexities to Flask), 
     // passes OPTIONAL get info to the server (here we pass the art_id pulled from Jinja
@@ -36,7 +36,37 @@ function toggleFavoriteArt(evt) {
     // and lastly declare the success funtion that will happen once info is returned from the server
 }
 
+function toggleFavoriteArtist(evt) {
+    // Favor and unfavor Artist to the DB on the UserArtist Table
+
+    evt.preventDefault();
+
+    var artist_id = $("#hidden_artist_id").val();
+
+    $.get("/toggle/artist.json", {"artist_id": artist_id}, toggleButton);
+}
+
+function toggleFavoriteCollection(evt) {
+    // Favor and unfavor Collections to the DB on the UserCollection Table
+
+    evt.preventDefault();
+
+    var collection_id = $("#hidden_collection_id").val();
+
+    $.get("/toggle/collection.json", {"collection_id": collection_id}, toggleButton);
+}
+
 $(document).ready(function () {
     // AJAX EventListener: When 'click' on fav btn, initiate toggleFavoriteArt func 
-    $('#favorite-btn').on('click', toggleFavoriteArt);
+    $('#favorite-art-btn').on('click', toggleFavoriteArt);
+});
+
+$(document).ready(function () {
+    // AJAX EventListener: When 'click' on fav btn, initiate toggleFavoriteArtist func 
+    $('#favorite-artist-btn').on('click', toggleFavoriteArtist);
+});
+
+$(document).ready(function () {
+    // AJAX EventListener: When 'click' on fav btn, initiate toggleFavoriteCollection func 
+    $('#favorite-collection-btn').on('click', toggleFavoriteCollection);
 });

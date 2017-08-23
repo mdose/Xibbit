@@ -11,6 +11,19 @@
       <div class="row">
         <center><img src="{{ collection.image_url }}" height="400" padding="10px"></center>
       </div>
+
+      <div>        
+        <br>
+        <center>
+          <button type="button" id="favorite-collection-btn" class="btn btn-default btn-md" style="text-align:right">
+            {% if is_favorited %}
+              <span class="glyphicon glyphicon-star" id="favorite"></span> Favorite 
+            {% else %}
+              <span class="glyphicon glyphicon-star-empty" id="favorite"></span> Favorite
+            {% endif %}
+          </button>
+        </center>
+      </div>
       
       <div class="row">
         <div class="col-xs-offset-3 col-xs-4">
@@ -21,6 +34,8 @@
           <strong>Location:</strong>
             {{ collection.location }}
         </div>
+
+        <input type="hidden" id="hidden_collection_id" value="{{ collection.collection_id }}">
 
         <div class="col-xs-offset-7">
           <br>

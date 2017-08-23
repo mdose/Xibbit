@@ -8,9 +8,7 @@
         <center><img src="{{ art.image_url }}" height="400" padding="10px"></center>
         <br>
         <center>
-
-          <!-- TODO: Jinja Logic to show filled in star if user already faved -->
-          <button type="button" id="favorite-btn" class="btn btn-default btn-md" style="text-align:right">
+          <button type="button" id="favorite-art-btn" class="btn btn-default btn-md" style="text-align:right">
             {% if is_favorited %}
               <span class="glyphicon glyphicon-star" id="favorite"></span> Favorite 
             {% else %}

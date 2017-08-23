@@ -147,29 +147,73 @@ def show_user(user_id):
     return render_template("profile.html", user=user)
 
 
-@app.route("/toggle.json")
+@app.route("/toggle/art.json")
 def toggle_fav_art_to_db():
     """Toggle art favorited by a user to to UserArt Table"""
 
-    art_id = request.args.get("art_id")
     user_id = session['current_user']
-    # user_list = []
-
+    art_id = request.args.get("art_id")
     # getting art_id via js object key rather than "name" HTML element
 
-    favorite = UserArt.query.filter_by(user_id=user_id, art_id=art_id).first()
+    favorite_art = UserArt.query.filter_by(user_id=user_id, art_id=art_id).first()
 
-    if favorite:
+    if favorite_art:
         # If favorite already exists in db for this user, remove it
         # user_list.artworks.pop(favorite)
-        db.session.delete(favorite)
+        db.session.delete(favorite_art)
         db.session.commit()
 
     else:
-        new_favorite = UserArt(user_id=user_id, art_id=art_id)
+        new_favorite_art = UserArt(user_id=user_id, art_id=art_id)
         # If favorite already exists in db for this user, add it
         # user_list.artworks.append(favorite)
-        db.session.add(new_favorite)
+        db.session.add(new_favorite_art)
+        db.session.commit()
+
+    result = "Success!"
+
+    return result
+
+
+@app.route("/toggle/artist.json")
+def toggle_fav_artist_to_db():
+    """Toggle artist favorited by a user to to UserArtist Table"""
+
+    user_id = session['current_user']
+    artist_id = request.args.get("artist_id")
+
+    favorite_artist = UserArtist.query.filter_by(user_id=user_id, artist_id=artist_id).first()
+
+    if favorite_artist:
+        db.session.delete(favorite_artist)
+        db.session.commit()
+
+    else:
+        new_favorite_artist = UserArtist(user_id=user_id, artist_id=artist_id)
+        db.session.add(new_favorite_artist)
+        db.session.commit()
+
+    result = "Success!"
+
+    return result
+
+
+@app.route("/toggle/collection.json")
+def toggle_fav_collection_to_db():
+    """Toggle collection favorited by a user to to UserCollection Table"""
+
+    user_id = session['current_user']
+    collection_id = request.args.get("collection_id")
+
+    favorite_collection = UserCollection.query.filter_by(user_id=user_id, collection_id=collection_id).first()
+
+    if favorite_collection:
+        db.session.delete(favorite_collection)
+        db.session.commit()
+
+    else:
+        new_favorite_collection = UserCollection(user_id=user_id, collection_id=collection_id)
+        db.session.add(new_favorite_collection)
         db.session.commit()
 
     result = "Success!"
@@ -193,9 +237,6 @@ def show_art(art_id):
     user_id = session['current_user']
     favorite = UserArt.query.filter_by(user_id=user_id, art_id=art_id).first()
     is_favorited = favorite is not None
-    # if art == None:
-    #     flash("Artwork %s not yet added to the db." % art_id)
-    #     return redirect("/")
 
     return render_template("artworks.html", art=art, is_favorited=is_favorited)
 
@@ -213,7 +254,11 @@ def show_artist(artist_id):
     """Generates the display page for each artist in db."""
 
     artist = Artist.query.filter_by(artist_id=artist_id).first()
-    return render_template("artists.html", artist=artist)
+    user_id = session['current_user']
+    favorite = UserArtist.query.filter_by(user_id=user_id, artist_id=artist_id).first()
+    is_favorited = favorite is not None
+
+    return render_template("artists.html", artist=artist, is_favorited=is_favorited)
 
 
 @app.route('/collections')
@@ -229,7 +274,11 @@ def show_collection(collection_id):
     """Generates the display page for each collection in db."""
 
     collection = Collection.query.filter_by(collection_id=collection_id).first()
-    return render_template("museums.html", collection=collection)
+    user_id = session['current_user']
+    favorite = UserCollection.query.filter_by(user_id=user_id, collection_id=collection_id).first()
+    is_favorited = favorite is not None
+
+    return render_template("museums.html", collection=collection, is_favorited=is_favorited)
 
 ################################################################################
 

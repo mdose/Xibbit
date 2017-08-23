@@ -27,6 +27,19 @@
         <center><p> {{artist.image_caption }} </p></center>
         {% endif %}
       </div>
+
+      <div>        
+        <br>
+        <center>
+          <button type="button" id="favorite-artist-btn" class="btn btn-default btn-md" style="text-align:right">
+            {% if is_favorited %}
+              <span class="glyphicon glyphicon-star" id="favorite"></span> Favorite 
+            {% else %}
+              <span class="glyphicon glyphicon-star-empty" id="favorite"></span> Favorite
+            {% endif %}
+          </button>
+        </center>
+      </div>
       
       <div class="row">
         <div class="col-xs-offset-3 col-xs-4">
@@ -38,6 +51,8 @@
             {{artist.primary_name}} {{artist.secondary_name}}
           {% endif %}
           <br>
+
+          <input type="hidden" id="hidden_artist_id" value="{{ artist.artist_id }}">
 
           {% if artist.birth_year != None%}
           <strong>Lifespan:</strong>
