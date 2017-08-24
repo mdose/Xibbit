@@ -9,6 +9,7 @@ from model import (Art, Artist, User, ArtType, Collection, ArtMovement,
                    SubjectMatter, ArtistArt, UserArt, UserArtist,
                    UserCollection, connect_to_db, db)
 
+# pip install geocoder
 
 app = Flask(__name__)
 
@@ -121,12 +122,28 @@ def show_logout():
 def show_user(user_id):
     """Generates the profile page for each user in db."""
 
+    # FIXME: Need to add extra security so that no one can access someone else's profile
+    # by just changing the user_id num in the URL!!!!!
+
     user = User.query.filter_by(user_id=user_id).first()
     if user is None:
         flash("User %s not found." % user_id)
         return redirect("/login")
 
     return render_template("profile.html", user=user)
+
+
+@app.route("/maps")
+def show_favorite_art_in_map():
+    """Generates a map that shows the museum locations of a user's favorite art"""
+
+    user_id = session['current_user']
+    user = User.query.filter_by(user_id=user_id).first()
+    # if user is None:
+    #     flash("User %s not found." % user_id)
+    #     return redirect("/login")
+
+    return render_template("maps.html", user=user)
 
 
 @app.route("/toggle/art.json")
