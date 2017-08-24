@@ -12,7 +12,8 @@
         <center><img src="{{ collection.image_url }}" height="400" padding="10px"></center>
       </div>
 
-      <div>        
+      <div> 
+        {% if session.get('current_user') %}       
         <br>
         <center>
           <button type="button" id="favorite-collection-btn" class="btn btn-default btn-md" style="text-align:right">
@@ -23,6 +24,7 @@
             {% endif %}
           </button>
         </center>
+        {% endif %}
       </div>
       
       <div class="row">

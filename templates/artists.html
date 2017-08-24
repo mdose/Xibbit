@@ -30,6 +30,7 @@
 
       <div>        
         <br>
+        {% if session.get('current_user') %}
         <center>
           <button type="button" id="favorite-artist-btn" class="btn btn-default btn-md" style="text-align:right">
             {% if is_favorited %}
@@ -39,6 +40,7 @@
             {% endif %}
           </button>
         </center>
+        {% endif %}
       </div>
       
       <div class="row">

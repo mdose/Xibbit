@@ -216,9 +216,12 @@ def show_art(art_id):
     """Generates the display page for each artwork in db."""
 
     art = Art.query.filter_by(art_id=art_id).first()
-    user_id = session['current_user']
-    favorite = UserArt.query.filter_by(user_id=user_id, art_id=art_id).first()
-    is_favorited = favorite is not None
+    if 'current_user' in session:
+        user_id = session['current_user']
+        favorite = UserArt.query.filter_by(user_id=user_id, art_id=art_id).first()
+        is_favorited = favorite is not None
+    else:
+        is_favorited = False
 
     return render_template("artworks.html", art=art, is_favorited=is_favorited)
 
@@ -236,9 +239,12 @@ def show_artist(artist_id):
     """Generates the display page for each artist in db."""
 
     artist = Artist.query.filter_by(artist_id=artist_id).first()
-    user_id = session['current_user']
-    favorite = UserArtist.query.filter_by(user_id=user_id, artist_id=artist_id).first()
-    is_favorited = favorite is not None
+    if 'current_user' in session:
+        user_id = session['current_user']
+        favorite = UserArtist.query.filter_by(user_id=user_id, artist_id=artist_id).first()
+        is_favorited = favorite is not None
+    else:
+        is_favorited = False
 
     return render_template("artists.html", artist=artist, is_favorited=is_favorited)
 
@@ -256,9 +262,12 @@ def show_collection(collection_id):
     """Generates the display page for each collection in db."""
 
     collection = Collection.query.filter_by(collection_id=collection_id).first()
-    user_id = session['current_user']
-    favorite = UserCollection.query.filter_by(user_id=user_id, collection_id=collection_id).first()
-    is_favorited = favorite is not None
+    if 'current_user' in session:
+        user_id = session['current_user']
+        favorite = UserCollection.query.filter_by(user_id=user_id, collection_id=collection_id).first()
+        is_favorited = favorite is not None
+    else:
+        is_favorited = False
 
     return render_template("museums.html", collection=collection, is_favorited=is_favorited)
 

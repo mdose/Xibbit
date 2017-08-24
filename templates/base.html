@@ -20,12 +20,11 @@
   {% endfor %}
   </ul>
     <center>
-    {% if session.get('current_user') %}
     <button><a href="/">Home</a></button>
+    {% if session.get('current_user') %}
     <button><a href="/users/{{ session.get('current_user') }}">Profile</a></button>
     <button><a href="/logout">Logout </a></button>
     {% else %}
-    <button><a href="/">Home</a></button>
     <button><a href="/register">Register </a></button>
     <button><a href="/login">Login</a></button>
     {% endif %}
