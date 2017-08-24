@@ -9,37 +9,42 @@
           {% for art in artworks %}
           <ul>
             <a href="/artworks/{{ art.art_id }}"> 
-            <img src="{{ art.image_url }}" height="200" padding="10px">
-            {{ art.title }} by 
+              <img src="{{ art.image_url }}" height="200" padding="10px">
+              {{ art.title }} by 
               {% for artist in art.artists %}
-            {{ artist.primary_name}} {{ artist.secondary_name }}</a>
+                {{ artist.primary_name}} {{ artist.secondary_name }}
               {% endfor %}
+            </a>
           </ul>
         {% endfor %}
     </div>
+  {% endif %}
 
-  {% elif artists %}
+  {% if artists %}
     <div>
       <h4>Artists:</h4> 
-          {% for artist in artists %}
+        {% for artist in artists %}
           <ul>
             <a href="/artists/{{ artist.artist_id }}"> 
-            {% if artist.secondary_name == None %}
-              {{ artist.primary_name }}
-            {% else %}
-              {{artist.primary_name}} {{artist.secondary_name}}
-            {% endif %}
+              {% if artist.secondary_name == None %}
+                {{ artist.primary_name }}
+              {% else %}
+                {{artist.primary_name}} {{artist.secondary_name}}
+              {% endif %}
+            </a>
           </ul>
         {% endfor %}
     </div>
+  {% endif %}
 
-  {% elif museums %}
+  {% if museums %}
     <div>
       <h4>Museums:</h4> 
-          {% for museum in museums %}
+        {% for museum in museums %}
           <ul>
             <a href="/collections/{{ museum.collection_id }}"> 
               {{ museum.name }}, {{ museum.location }}
+            </a>
           </ul>
         {% endfor %}
     </div>

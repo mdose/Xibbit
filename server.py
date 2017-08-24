@@ -26,7 +26,7 @@ def show_index():
     return render_template("homepage.html")
 
 
-@app.route('/', methods=["POST"])
+@app.route('/results', methods=["POST"])
 def search_db():
     """Query that searches the Database"""
 
@@ -34,9 +34,9 @@ def search_db():
     # TODO: Create search results tempalate instead of redirecting to one page
 
     search = request.form.get("search")
-    artworks = Art.query.filter(Art.title == search).all()
-    artists = Artist.query.filter(Artist.primary_name == search).all()
-    museums = Collection.query.filter(Collection.name == search).all()
+    artworks = Art.query.filter(Art.title.ilike('%' + search + '%')).all()
+    artists = Artist.query.filter(Artist.primary_name.ilike('%' + search + '%')).all()
+    museums = Collection.query.filter(Collection.name.ilike('%' + search + '%') | Collection.location.ilike('%' + search + '%')).all()
 
     if artworks or artists or museums:
         return render_template("results.html", search=search, artworks=artworks,
