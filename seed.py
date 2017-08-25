@@ -9,7 +9,7 @@ from model import ArtMovement
 from model import SubjectMatter
 from model import ArtistArt
 from model import User
-from model import UserArt
+# from model import UserArt
 # from model import UserArtist
 # from model import UserCollection
 
@@ -130,10 +130,11 @@ def load_collections():
     for row in open("seed_data/u.collections"):
         row = row.rstrip("\n").strip(chr(13))
         row = row.split("\t")
-        collection_id, name, location, image_url = row
+        collection_id, name, location, image_url, address, lat, lng = row
 
         collection = Collection(collection_id=collection_id, name=name,
-                                location=location, image_url=image_url)
+                                location=location, image_url=image_url,
+                                address=address, lat=lat, lng=lng)
         db.session.add(collection)
 
     db.session.commit()

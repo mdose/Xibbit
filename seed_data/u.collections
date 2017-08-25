@@ -1,10 +1,9 @@
-1	Museé de Louvre	Paris	https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Louvre_Museum_Wikimedia_Commons.jpg/800px-Louvre_Museum_Wikimedia_Commons.jpg
-2	The British Museum	London	https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/British_Museum_from_NE_2.JPG/800px-British_Museum_from_NE_2.JPG
-3	Musei Vaticani	Vatican, Rome	https://traveldigg.com/wp-content/uploads/2016/06/Vatican-Museum-Photo.jpeg
-4	Museo Nazionale Archeologico	Naples	https://upload.wikimedia.org/wikipedia/commons/9/91/Natmuseumnaples.jpg
-5	Museo Nazionale del Bargello	Florence	http://www.topsightseeing.com/wp-content/uploads/2016/08/florencemuseonazionaledelbargello.jpg
-6	National Gallery	London	https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Galer%C3%ADa_Nacional%2C_Londres%2C_Inglaterra%2C_2014-08-07%2C_DD_035.JPG/1024px-Galer%C3%ADa_Nacional%2C_Londres%2C_Inglaterra%2C_2014-08-07%2C_DD_035.JPG
-7	Galleria degli Uffizi	Florence	https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Piazza_Signoria_-_Firenze.jpg/1200px-Piazza_Signoria_-_Firenze.jpg
-8	Galleria dell'Accademia	Venice	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Accademia_%28Venice%29.jpg/800px-Accademia_%28Venice%29.jpg
-9	Galleria dell'Accademia	Florence	https://upload.wikimedia.org/wikipedia/commons/3/37/David_by_Michelangelo_in_The_Gallery_of_the_Accademia_di_Belle_Arti.jpg
-10	Stanza della Segnatura, Musei Vaticani	Vatican, Rome	https://traveldigg.com/wp-content/uploads/2016/06/Vatican-Museum-Photo.jpeg
+1	Museé de Louvre	Paris	https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Louvre_Museum_Wikimedia_Commons.jpg/800px-Louvre_Museum_Wikimedia_Commons.jpg	Rue de Rivoli, 75001 Paris, France	48.860621	2.337642
+2	The British Museum	London	https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/British_Museum_from_NE_2.JPG/800px-British_Museum_from_NE_2.JPG	Great Russell St, Bloomsbury, London WC1B 3DG, UK	51.519425	-0.126965
+3	Musei Vaticani	Vatican, Rome	https://traveldigg.com/wp-content/uploads/2016/06/Vatican-Museum-Photo.jpeg	Viale Vaticano, 00165 Roma RM, Italy	41.906493	12.453625
+4	Museo Nazionale Archeologico di Napoli	Naples	https://upload.wikimedia.org/wikipedia/commons/9/91/Natmuseumnaples.jpg	Piazza Museo, 19, 80135 Napoli NA, Italy	40.853601	14.250512
+5	Museo Nazionale del Bargello	Florence	http://www.topsightseeing.com/wp-content/uploads/2016/08/florencemuseonazionaledelbargello.jpg	Via del Proconsolo, 4, 50122 Firenze FI, Italy	43.770412	11.258004
+6	National Gallery	London	https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Galer%C3%ADa_Nacional%2C_Londres%2C_Inglaterra%2C_2014-08-07%2C_DD_035.JPG/1024px-Galer%C3%ADa_Nacional%2C_Londres%2C_Inglaterra%2C_2014-08-07%2C_DD_035.JPG	Trafalgar Square, London WC2N 5DN, UK	51.508929	-0.128317
+7	Galleria degli Uffizi	Florence	https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Piazza_Signoria_-_Firenze.jpg/1200px-Piazza_Signoria_-_Firenze.jpg	Piazzale degli Uffizi, 6, 50122 Firenze FI, Italy	43.767786	11.255311
+8	Galleria dell'Accademia	Venice	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Accademia_%28Venice%29.jpg/800px-Accademia_%28Venice%29.jpg	Campo della Carita, 1050, 30123 Venezia VE, Italy	45.431091	12.328119
+9	Galleria dell'Accademia	Florence	https://upload.wikimedia.org/wikipedia/commons/3/37/David_by_Michelangelo_in_The_Gallery_of_the_Accademia_di_Belle_Arti.jpg	Via Ricasoli, 58/60, 50122 Firenze FI, Italy	43.776811	11.259077

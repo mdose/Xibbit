@@ -10,6 +10,10 @@ from model import (Art, Artist, User, ArtType, Collection, ArtMovement,
                    UserCollection, connect_to_db, db)
 
 # pip install geocoder
+# TODO: ^ geocoder will be needed for creating the v. 3.0 admin form of adding new
+# data/museums to db. Form will have user enter museum address and geocoder will
+# convert that into lat and long and put into db automatically (more advanced use
+# of Maps API with the python geocoder library.)
 
 app = Flask(__name__)
 
@@ -130,20 +134,23 @@ def show_user(user_id):
         flash("User %s not found." % user_id)
         return redirect("/login")
 
+    # TODO get lat/lng from db and make markers render on map (in two colors to
+    # distinguish b/t fav art and fav museums)
+
     return render_template("profile.html", user=user)
 
 
-@app.route("/maps")
-def show_favorite_art_in_map():
-    """Generates a map that shows the museum locations of a user's favorite art"""
+# @app.route("/maps")
+# def show_favorite_art_in_map():
+#     """Generates a map that shows the museum locations of a user's favorite art"""
 
-    user_id = session['current_user']
-    user = User.query.filter_by(user_id=user_id).first()
-    # if user is None:
-    #     flash("User %s not found." % user_id)
-    #     return redirect("/login")
+#     user_id = session['current_user']
+#     user = User.query.filter_by(user_id=user_id).first()
+#     # if user is None:
+#     #     flash("User %s not found." % user_id)
+#     #     return redirect("/login")
 
-    return render_template("maps.html", user=user)
+#     return render_template("maps.html", user=user)
 
 
 @app.route("/toggle/art.json")
@@ -169,9 +176,7 @@ def toggle_fav_art_to_db():
         db.session.add(new_favorite_art)
         db.session.commit()
 
-    result = "Success!"
-
-    return result
+    return "Success!"
 
 
 @app.route("/toggle/artist.json")
