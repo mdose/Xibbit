@@ -140,9 +140,24 @@ def show_user(user_id):
     return render_template("profile.html", user=user)
 
 
-# @app.route("/maps")
-# def show_favorite_art_in_map():
-#     """Generates a map that shows the museum locations of a user's favorite art"""
+@app.route('/get_info')
+def get_info():
+    """Gets db info needed to generate map markers that shows the museum locations of a user's favorite art"""
+    user_id = session['current_user']
+    subquery = db.session.query(UserArt.art_id).filter(UserArt.user_id == user_id).subquery()
+    fav_arts = Art.query.filter(Art.art_id.in_(subquery)).all()
+    fav_art = {'favorites': []}
+
+    for art in fav_arts:
+        art_info = {'title': art.title,
+                    'collection': art.collection.name,
+                    'lat': art.collection.lat,
+                    'lng': art.collection.lng}
+
+        fav_art['favorites'].append(art_info)
+    # prints each Object faved by user in UserArt class
+
+    return jsonify(fav_art)
 
 #     user_id = session['current_user']
 #     user = User.query.filter_by(user_id=user_id).first()
