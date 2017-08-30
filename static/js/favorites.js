@@ -59,14 +59,10 @@ function toggleFavoriteCollection(evt) {
 $(document).ready(function () {
     // AJAX EventListener: When 'click' on fav btn, initiate toggleFavoriteArt func 
     $('#favorite-art-btn').on('click', toggleFavoriteArt);
-});
-
-$(document).ready(function () {
     // AJAX EventListener: When 'click' on fav btn, initiate toggleFavoriteArtist func 
     $('#favorite-artist-btn').on('click', toggleFavoriteArtist);
-});
-
-$(document).ready(function () {
     // AJAX EventListener: When 'click' on fav btn, initiate toggleFavoriteCollection func 
     $('#favorite-collection-btn').on('click', toggleFavoriteCollection);
+
+    // When testing, make sure that all three event listeners are being touched each time
 });
