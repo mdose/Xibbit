@@ -17,6 +17,8 @@ from model import connect_to_db, db
 from server import app
 
 
+# Instantiate Vision API
+
 def load_art():
     """Load artworks from u.art into database."""
 
@@ -70,6 +72,17 @@ def load_art():
         db.session.add(new_artist_artwork)
 
         db.session.commit()
+
+        # for each artwork get labels from Vision API and then insert each label
+        load_labels(art)
+
+
+def load_labels(art):
+    # this is where you use the vision api to get the list of labels
+    # labels = junk
+    # for label in labels:
+    #    insert label.description into db
+    pass
 
 
 def load_artists():

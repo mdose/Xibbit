@@ -280,32 +280,18 @@ class UserCollection(db.Model):
             self.user_collection_id, self.user_id, self.collection_id)
 
 
-# class ArtworkArtMovement(db.Model):
-#     """Association table for Artworks and ArtMovements"""
-
-#     __tablename__ = "artworks_artmovements"
-
-#     pass
-
-
-# class ArtworkSubjectMatter(db.Model):
-#     """Association table for Artworks and Subject Matter"""
-
-#     pass
-
 ########### Version 2.0  ######################################################
-# class Content(db.Model):
+# class Label(db.Model):
 #     """Content labels for users to find what's in an artwork"""
 #     """Ex. Dog, Cat, boy, girl, etc."""
 #     """To be used with Google API"""
 
+
+# This table needs 3 fields: primary key, art_id, label (string)
 #     pass
+# Connects to Art Table with one-to-many relationship (art has many label)
+# forgein key belongs on this table/ (label belongs to art)
 
-
-# class ArtworkContent(db.Model):
-#     """Association table for Artworks and Content"""
-
-#     pass
 
 ##############################################################################
 # Helper functions
