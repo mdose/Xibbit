@@ -151,13 +151,14 @@ class Collection(db.Model):
     address = db.Column(db.String(200), nullable=True)
     lat = db.Column(db.Float, nullable=False)
     lng = db.Column(db.Float, nullable=False)
+    website = db.Column(db.String, nullable=False)
 
     def __repr__(self):
         """Info on museum or collection the artwork belongs to"""
 
-        return "<Collection id: {}, Institution name: {}, Location: {}, Image_URL: {}, Address: {}, Lat: {}, Lng: {}>".format(
+        return "<Collection id: {}, Institution name: {}, Location: {}, Image_URL: {}, Address: {}, Lat: {}, Lng: {}, Website: {}>".format(
             self.collection_id, self.name, self.location, self.image_url, self.address,
-            self.lat, self.lng)
+            self.lat, self.lng, self.website)
 
 
 class ArtMovement(db.Model):

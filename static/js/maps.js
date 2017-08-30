@@ -1,6 +1,6 @@
 "use strict";
 
-// var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// TODO: ? var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 54.5260, lng: 15.2551},
@@ -11,21 +11,23 @@ function initMap() {
         zoom: 4
     });
 
-    getMarkers(map, function(markers) {
+    getMarkersInfo(map, function(markers) {
         console.log(markers); // debug info
         var markerCluster = new MarkerClusterer(map, markers,
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     });
 }
 
-function getMarkers(map, cb_done) {
+function getMarkersInfo(map, cb_done) {
     $.get('/get_info', function(results) {
         var markers = [];
-        console.log(results);
+        //console.log(results);
         var marker;
         var favorites = results['favorites'];
-        for (var one_favorite of favorites) {
-            marker = addMarker(map, one_favorite);
+        // favorites is a dict; need to loop over dict instead of list
+        for (var one_favorite in favorites) {
+            console.log(one_favorite);
+            marker = addMarker(map, favorites[one_favorite]);
             markers.push(marker);
         }
         cb_done(markers);
@@ -33,47 +35,31 @@ function getMarkers(map, cb_done) {
 }
 
 function addMarker(map, one_favorite) {
-    var LatLng = new google.maps.LatLng(one_favorite['lat'], one_favorite['lng'])
     var marker = new google.maps.Marker({
-        position: LatLng,
+        position: one_favorite[0]['location'],
         map: map,
-        title: one_favorite['title']
+        title: one_favorite[0]['collection']
     });
     attachInfoWindow(map, marker, one_favorite);
     return marker;
 }
 
 function attachInfoWindow(map, marker, one_favorite) {
-    var contentString = '<div id="content">' +
-        '<h1>Test</h1>' +
-        '</div>';
+
+    var contentString = '<div id="content">';
+    contentString += '<h3>'+one_favorite[0]['collection']+'</h3>';
+    contentString += '<h4><a href='+one_favorite[0]['website']+'>'+one_favorite[0]['website']+'</a></h4>';
+    contentString += '<ul>';
+    for (var art in one_favorite){
+        contentString += '<li class="art"><a href=/artworks/'+one_favorite[art]['art_id']+'>'+one_favorite[art]['title']+'</li>';
+    }
+    contentString += '</ul></div>';
 
     var infoWindow = new google.maps.InfoWindow({
-        content: contentString,
-        maxWidth: 200
+        content: contentString
     });
 
     marker.addListener('click', function() {
         infoWindow.open(map, marker);
     });  
 }
-
-// var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-// conssole.log("I'm here");
-// var louvreMarker = new google.maps.Marker({
-//   position: {lat: 48.860621, lng: 2.337642},
-//   map: map
-// });
-// var markers = getInfo();
-//           return new google.maps.Marker({
-//             position: LatLng,
-//             label: labels[i % labels.length]
-//           });
-//         });
-        
-
-        // Add a marker clusterer to manage the markers.
-// var markerCluster = new MarkerClusterer(map, markers,
-//     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-

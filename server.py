@@ -146,26 +146,52 @@ def get_info():
     user_id = session['current_user']
     subquery = db.session.query(UserArt.art_id).filter(UserArt.user_id == user_id).subquery()
     fav_arts = Art.query.filter(Art.art_id.in_(subquery)).all()
-    fav_art = {'favorites': []}
+    # returns a list of all art favorited by current user
+    fav_art_dict = {'favorites': {}}
+    # empty dictionary fav_art contains a dictionary for it's values
 
     for art in fav_arts:
-        art_info = {'title': art.title,
+        # loop through list of artworks in the fav_arts query list
+        art_info = {'art_id': art.art_id,
+                    'title': art.title,
                     'collection': art.collection.name,
-                    'lat': art.collection.lat,
-                    'lng': art.collection.lng}
+                    'website': art.collection.website,
+                    'location': {'lat': art.collection.lat,
+                                 'lng': art.collection.lng
+                                 }
+                    }
+        # for each artwork create an art_info variable with a dictionary as it's value
+        # inside that dictionary have a string as a keyword and info from the database as the value
+        # except for the key 'location', which has another dict as it's value with lat/lng as keys and nums as values
+        key = "["+str(art.collection.lat)+", "+str(art.collection.lng)+"]"
+        if not key in fav_art_dict['favorites']:
+            fav_art_dict['favorites'][key] = []
+            # make lat and long a list as a key, with an empty list as it's value
 
-        fav_art['favorites'].append(art_info)
-    # prints each Object faved by user in UserArt class
+        fav_art_dict['favorites'][key].append(art_info)
+        # then for each art_info box created, append that to the empty value list for the lat/long key
 
-    return jsonify(fav_art)
+# _____________________________________________________________________________________________________#
+#######Orignal Code with fav_art_dict having a list as a value instead of a dictionary##################
 
-#     user_id = session['current_user']
-#     user = User.query.filter_by(user_id=user_id).first()
-#     # if user is None:
-#     #     flash("User %s not found." % user_id)
-#     #     return redirect("/login")
+    # fav_art_dict = {'favorites': []}
+    # # empty dictionary fav_art contains a list for it's values
 
-#     return render_template("maps.html", user=user)
+    # for art in fav_arts:
+    #     # loop through list of artworks in the fav_arts query list
+    #     art_info = {'title': art.title,
+    #                 'collection': art.collection.name,
+    #                 'lat': art.collection.lat,
+    #                 'lng': art.collection.lng}
+    #     # for each artwork create an art_info variable with a dictionary as it's value
+    #     # inside that dictionary have a string as a keyword and info from the database and the value
+
+    #     fav_art_dict['favorites'].append(art_info)
+    #     # for each art_info variable created, append it to the value list for the 'favorites' dict
+# _____________________________________________________________________________________________________#
+
+    return jsonify(fav_art_dict)
+    # jsonify the favorites dict to send to the JS/Client
 
 
 @app.route("/toggle/art.json")
