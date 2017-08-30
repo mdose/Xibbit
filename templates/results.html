@@ -49,5 +49,16 @@
         {% endfor %}
     </div>
   {% endif %}
+  {% if subject_matters %}
+    <div>
+      <h4>Subject Matter:</h4> 
+        {% for subject in subject_matters %}
+          <ul>
+              {{ subject.category }}
+            </a>
+          </ul>
+        {% endfor %}
+    </div>
+  {% endif %}
 </center>
 {% endblock %}

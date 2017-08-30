@@ -42,10 +42,11 @@ def search_db():
     artworks = Art.query.filter(Art.title.ilike('%' + search + '%')).all()
     artists = Artist.query.filter(Artist.primary_name.ilike('%' + search + '%')).all()
     museums = Collection.query.filter(Collection.name.ilike('%' + search + '%') | Collection.location.ilike('%' + search + '%')).all()
+    subject_matters = SubjectMatter.query.filter(SubjectMatter.category.ilike('%' + search + '%')).all()
 
-    if artworks or artists or museums:
+    if artworks or artists or museums or subject_matters:
         return render_template("results.html", search=search, artworks=artworks,
-                               artists=artists, museums=museums)
+                               artists=artists, museums=museums, subject_matters=subject_matters)
     else:
         flash("I'm sorry, that term has not been added to the database. Please search again.")
         return redirect("/")

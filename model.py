@@ -281,17 +281,30 @@ class UserCollection(db.Model):
 
 
 ########### Version 2.0  ######################################################
-# class Label(db.Model):
-#     """Content labels for users to find what's in an artwork"""
-#     """Ex. Dog, Cat, boy, girl, etc."""
-#     """To be used with Google API"""
+class Label(db.Model):
+    """Content labels for users to find what's in an artwork"""
+    """Ex. Statue, still life, boy, girl, etc."""
+    """To be used with Google API"""
 
+    __tablename__ = "labels"
 
-# This table needs 3 fields: primary key, art_id, label (string)
-#     pass
-# Connects to Art Table with one-to-many relationship (art has many label)
-# forgein key belongs on this table/ (label belongs to art)
+    label_id = db.Column(db.Integer,
+                         primary_key=True,
+                         autoincrement=True,
+                         nullable=False)
+    art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
+    label = db.Column(db.String(75), nullable=True)
 
+    art = db.relationship('Art', backref='labels')
+
+# Connects to Art Table with one-to-many relationship (art has many labels)
+# Forgein key belongs on this table/ (label belongs to art)
+
+    def __repr__(self):
+        """Info on the Label Table"""
+
+        return "<Label id: {}, Art id: {}, Label: {}>".format(
+            self.label_id, self.art_id, self.label)
 
 ##############################################################################
 # Helper functions
