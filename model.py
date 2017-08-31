@@ -22,7 +22,7 @@ class Art(db.Model):
                        autoincrement=True,
                        nullable=False)
     title = db.Column(db.String(100), nullable=False)
-    image_url = db.Column(db.String(1000), nullable=False)
+    image = db.Column(db.String(1000), nullable=False)
     # !!!Remember to add a constraint to db or server that insures that year or
     # year description is required to add art to the database (all are nullable)
     year = db.Column(db.Integer, nullable=True)
@@ -60,7 +60,7 @@ class Art(db.Model):
         <Artwork id: {}, Title: {}, Image: {}, Date: {}{}-{} {}, Medium: {},
         Description: {}, Height {}, Witdh {}, Collection id: {}, ArtType id: {},
         ArtMovement: {}, SubjectMatter: {}>
-        """.format(self.art_id, self.title, self.image_url, self.circa, self.year,
+        """.format(self.art_id, self.title, self.image, self.circa, self.year,
                    self.year_range, self.year_description, self.medium, self.description,
                    self.height_cm, self.width_cm, self.collection_id, self.art_type_id,
                    self.art_movement_id, self.subject_matter_id)
@@ -280,7 +280,6 @@ class UserCollection(db.Model):
             self.user_collection_id, self.user_id, self.collection_id)
 
 
-########### Version 2.0  ######################################################
 class Label(db.Model):
     """Content labels for users to find what's in an artwork"""
     """Ex. Statue, still life, boy, girl, etc."""
@@ -308,6 +307,7 @@ class Label(db.Model):
 
 ##############################################################################
 # Helper functions
+
 
 def connect_to_db(app, database='postgres:///masterpieces'):
     """Connect the database to our Flask app."""

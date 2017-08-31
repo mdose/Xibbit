@@ -1,4 +1,4 @@
-"""Masterpiece IMDB."""
+"""Xibbit."""
 
 from jinja2 import StrictUndefined
 

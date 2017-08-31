@@ -9,15 +9,19 @@ from model import ArtMovement
 from model import SubjectMatter
 from model import ArtistArt
 from model import User
-# from model import UserArt
-# from model import UserArtist
-# from model import UserCollection
-
 from model import connect_to_db, db
 from server import app
+import io
+import os
+
+# Imports the Google Cloud client library
+from google.cloud import vision
+from google.cloud.vision import types
 
 
 # Instantiate Vision API
+client = vision.ImageAnnotatorClient()
+
 
 def load_art():
     """Load artworks from u.art into database."""
@@ -38,7 +42,7 @@ def load_art():
         row = row.split("\t")
         art_id = row[0]
         title = row[1]
-        image_url = row[2]
+        image = row[2]
         circa = row[3]
         year = row[4] if row[4] else None
         year_range = row[5] if row[5] else None
@@ -53,7 +57,7 @@ def load_art():
         subject_matter_id = row[14]
         artist_id = row[15]
 
-        art = Art(art_id=art_id, title=title, image_url=image_url, circa=circa,
+        art = Art(art_id=art_id, title=title, image=image, circa=circa,
                   year=year, year_range=year_range, year_description=year_description,
                   medium=medium, description=description, height_cm=height_cm,
                   width_cm=width_cm, art_type_id=art_type_id, collection_id=collection_id,
@@ -74,15 +78,39 @@ def load_art():
         db.session.commit()
 
         # for each artwork get labels from Vision API and then insert each label
-        load_labels(art)
+        load_labels(art, image)
+
+        print "Labels"
 
 
-def load_labels(art):
+def load_labels(art, image):
     # this is where you use the vision api to get the list of labels
     # labels = junk
     # for label in labels:
     #    insert label.description into db
-    pass
+
+    # for each artwork run everything below
+    # The name of the image file to annotate
+    labels = file_name = os.path.join(os.path.dirname(__file__), image)
+
+        # Loads the image into memory
+    with io.open(file_name, 'rb') as image_file:
+        content = image_file.read()
+
+    vision_image = types.Image(content=content)
+
+    # Performs label detection on the image file
+    response = client.label_detection(vision_image=vision_image)
+    vision_labels = response.label_annotations
+
+    print vision_labels
+
+    print labels
+
+    # for label in labels:
+    #     print(label.description)
+    for label in labels:
+        print(label.descript)
 
 
 def load_artists():
