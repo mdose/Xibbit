@@ -12,11 +12,15 @@
               <img src="{{ art.image}}" height="200" padding="10px">
               {{ art.title }} by 
               {% for artist in art.artists %}
-                {{ artist.primary_name}} {{ artist.secondary_name }}
+                {% if artist.secondary_name == None %}
+                  {{ artist.primary_name }}
+                {% else %}
+                  {{artist.primary_name}} {{artist.secondary_name}}
+                {% endif %}
               {% endfor %}
             </a>
           </ul>
-        {% endfor %}
+          {% endfor %}
     </div>
   {% endif %}
 
