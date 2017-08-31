@@ -58,13 +58,11 @@ class Art(db.Model):
         """Info on artworks"""
 
         return """
-        <Artwork id: {}, Title: {}, Image: {}, Date: {}{}-{} {}, Medium: {},
-        Description: {}, Height {}, Witdh {}, Collection id: {}, ArtType id: {},
-        ArtMovement: {}, SubjectMatter: {}>
-        """.format(self.art_id, self.title, self.image, self.circa, self.year,
-                   self.year_range, self.year_description, self.medium, self.description,
-                   self.height_cm, self.width_cm, self.collection_id, self.art_type_id,
-                   self.art_movement_id, self.subject_matter_id)
+        <Artwork id: {}, Title: {}, Date: {}{}-{} {}, Medium: {},
+        ArtType: {}, ArtMovement: {}, SubjectMatter: {}>
+        """.format(self.art_id, self.title, self.circa, self.year, self.year_range,
+                   self.year_description, self.medium, self.art_type.art_type,
+                   self.art_movement.movement_name, self.subject_matter.category)
 
 
 class Artist(db.Model):

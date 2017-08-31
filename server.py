@@ -7,7 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import (Art, Artist, User, ArtType, Collection, ArtMovement,
                    SubjectMatter, ArtistArt, UserArt, UserArtist,
-                   UserCollection, connect_to_db, db)
+                   UserCollection, Label, LabelArt, connect_to_db, db)
 
 # pip install geocoder
 # TODO: ^ geocoder will be needed for creating the v. 3.0 admin form of adding new
@@ -39,14 +39,16 @@ def search_db():
     # TODO: Create search results tempalate instead of redirecting to one page
 
     search = request.form.get("search")
-    artworks = Art.query.filter(Art.title.ilike('%' + search + '%')).all()
+    subquery = db.session.query(Label.label_id).filter(Label.label.ilike('%' + search + '%')).subquery()
+    artworks = db.session.query(Art).join(SubjectMatter).join(LabelArt).filter(SubjectMatter.category.ilike('%' + search + '%') | Art.title.ilike('%' + search + '%') | LabelArt.label_id.in_(subquery)).all()
     artists = Artist.query.filter(Artist.primary_name.ilike('%' + search + '%')).all()
     museums = Collection.query.filter(Collection.name.ilike('%' + search + '%') | Collection.location.ilike('%' + search + '%')).all()
-    subject_matters = SubjectMatter.query.filter(SubjectMatter.category.ilike('%' + search + '%')).all()
+    labels = Label.query.filter(Label.label.ilike('%' + search + '%')).all()
+    # print labels
 
-    if artworks or artists or museums or subject_matters:
+    if artworks or artists or museums or labels:
         return render_template("results.html", search=search, artworks=artworks,
-                               artists=artists, museums=museums, subject_matters=subject_matters)
+                               artists=artists, museums=museums, labels=labels)
     else:
         flash("I'm sorry, that term has not been added to the database. Please search again.")
         return redirect("/")
