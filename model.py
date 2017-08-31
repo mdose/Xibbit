@@ -52,6 +52,7 @@ class Art(db.Model):
     art_movement = db.relationship('ArtMovement', backref='artworks')
     subject_matter = db.relationship('SubjectMatter', backref='artworks')
     artists = db.relationship('Artist', secondary='artists_artworks', backref='artworks')
+    labels = db.relationship('Label', secondary='labels_artworks', backref='artworks')
 
     def __repr__(self):
         """Info on artworks"""
@@ -291,19 +292,37 @@ class Label(db.Model):
                          primary_key=True,
                          autoincrement=True,
                          nullable=False)
-    art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
-    label = db.Column(db.String(75), nullable=True)
+    label = db.Column(db.String(75), nullable=False)
 
-    art = db.relationship('Art', backref='labels')
+    # artworks = db.relationship('Art', secondary='labels_artworks', backref='labels')
 
-# Connects to Art Table with one-to-many relationship (art has many labels)
-# Forgein key belongs on this table/ (label belongs to art)
-
+    # Connects to Art Table with one-to-many relationship (art has many labels)
+    # Forgein key belongs on this table/ (label belongs to art)
     def __repr__(self):
         """Info on the Label Table"""
 
-        return "<Label id: {}, Art id: {}, Label: {}>".format(
-            self.label_id, self.art_id, self.label)
+        return "<Label id: {}, Label: {}>".format(
+            self.label_id, self.label)
+
+
+class LabelArt(db.Model):
+    """Linking table for Labels and Art"""
+
+    __tablename__ = "labels_artworks"
+
+    label_art_id = db.Column(db.Integer,
+                             primary_key=True,
+                             autoincrement=True,
+                             nullable=False)
+    art_id = db.Column(db.Integer, db.ForeignKey('artworks.art_id'), nullable=False)
+    label_id = db.Column(db.Integer, db.ForeignKey('labels.label_id'), nullable=False)
+    score = db.Column(db.Float(20), nullable=False)
+
+    def __repr__(self):
+        """Info on the LabelArt Table"""
+
+        return "<Label/Art id: {}, Label ID: {}, Art ID: {}, Score: {}>".format(
+            self.label_art_id, self.label_id, self.art_id, self.score)
 
 ##############################################################################
 # Helper functions
