@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+  <h2> Test </h2>
+
+<div class="grid">
+  <h4>Artworks:</h4>      
+    <br>
+      <div class="grid-sizer"></div>
+      <div class="grid-item">
+        <img src="../static/img/Mona_Lisa.jpg" height="200" padding="10px">
+        <img src="../static/img/Discus_Thrower.jpg" height="200" padding="10px">
+        <img src="../static/img/School_of_Athens.jpg" height="200" padding="10px">
+        <img src="../static/img/Sappho.jpg" height="200" padding="10px">
+        <img src="../static/img/Birth_of_Venus.jpg" height="200" padding="10px">
+        <img src="../static/img/Prima_Porta.jpg" height="200" padding="10px">
+        <img src="../static/img/Venus_and_Mars.jpg" height="200" padding="10px">
+        <img src="../static/img/Sappho.jpg" height="200" padding="10px">
+
+      </div>
+      <div class="grid-item grid-item--width2"></div>  
+</div>
+</center>
+<script src="/static/js/masonry.js"></script>
+<script src="/path/to/masonry.pkgd.min.js"></script>
+{% endblock %}
