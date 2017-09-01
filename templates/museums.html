@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% block js %}
+
+<script src="static/js/collectionsMarkers.js"> </script>
+
+{% endblock %}
 {% block content %}
 
     <h2 class="museum-name">
@@ -57,9 +62,11 @@
       </div>
 
       <div id="map" class="indivial-museums"></div>
+      <span id="map_data" data-lat="{{ collection.lat }}" data-lng="{{ collection.lng }}"></span>
+      <span id="map_title" data-title="{{ collection.name }}"></span>
     </div> 
 
-<script src="/static/js/maps.js"></script>
+<script src="/static/js/museumMaps.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCexM0cyhuLYBlw7cibj5bolrLP4-tycME&callback=initMap"></script>
 
 {% endblock %}

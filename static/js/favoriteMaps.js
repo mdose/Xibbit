@@ -11,27 +11,41 @@ function initMap() {
         zoom: 4
     });
 
-// If on profile page
+// // If on profile page
+//     if (window.location.pathname.startsWith("/users/")) {
+//         getMarkersInfo(map, function(markers) {
+//             console.log(markers); // debug info
+//             var markerCluster = new MarkerClusterer(map, markers,
+//         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+//         });
+
+
+//     }
+
+
     getMarkersInfo(map, function(markers) {
         console.log(markers); // debug info
         var markerCluster = new MarkerClusterer(map, markers,
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     });
 
+    // else if window.location.pathname.startsWith("/collections/")){
+
+    // }
 // Elif on the museum page, use museum_id to get correct musuem coordinates from db
 // Call getIndividualMuseumInfo(map, function(markers){
     // addMarker(map, museum_id)
 // });
 }
 
-function getIndividualMuseumInfo(map) {
-    $.get('/get-indivi-coordin', function(results) {
-        var marker;
-        var cooridinates = results['cooridinates'];
-        // just need the lat/lng for individual museums
-        marker = addMarker(map, cooridinates);
-    });
-}
+// function getIndividualMuseumInfo(map) {
+//     $.get('/get-indivi-coordin', function(results) {
+//         var marker;
+//         var cooridinates = results['cooridinates'];
+//         // just need the lat/lng for individual museums
+//         marker = addMarker(map, cooridinates);
+//     });
+// }
 
 function getMarkersInfo(map, cb_done) {
     $.get('/get_info', function(results) {
@@ -74,7 +88,7 @@ function attachInfoWindow(map, marker, one_favorite) {
         content: contentString
     });
 
-    marker.addListener('click', function() {
+    marker.addListener('mouseover', function() {
         infoWindow.open(map, marker);
     });  
 }

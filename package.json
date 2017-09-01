@@ -1,0 +1,26 @@
+{
+  "name": "xibbit",
+  "version": "1.0.0",
+  "description": "The IMDB for art",
+  "main": "index.js",
+  "dependencies": {
+    "masonry-layout": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdose/Xibbit.git"
+  },
+  "keywords": [
+    "art"
+  ],
+  "author": "Megan Dose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdose/Xibbit/issues"
+  },
+  "homepage": "https://github.com/mdose/Xibbit#readme"
+}
