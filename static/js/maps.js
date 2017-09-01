@@ -11,10 +11,25 @@ function initMap() {
         zoom: 4
     });
 
+// If on profile page
     getMarkersInfo(map, function(markers) {
         console.log(markers); // debug info
         var markerCluster = new MarkerClusterer(map, markers,
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    });
+
+// Elif on the museum page, use museum_id to get correct musuem coordinates from db
+// Call getIndividualMuseumInfo(map, function(markers){
+    // addMarker(map, museum_id)
+// });
+}
+
+function getIndividualMuseumInfo(map) {
+    $.get('/get-indivi-coordin', function(results) {
+        var marker;
+        var cooridinates = results['cooridinates'];
+        // just need the lat/lng for individual museums
+        marker = addMarker(map, cooridinates);
     });
 }
 

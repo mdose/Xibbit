@@ -14,6 +14,8 @@ from model import (Art, Artist, User, ArtType, Collection, ArtMovement,
 # data/museums to db. Form will have user enter museum address and geocoder will
 # convert that into lat and long and put into db automatically (more advanced use
 # of Maps API with the python geocoder library.)
+# TODO: Google Cloud Vision will need to add labels to db when admin form commits
+# to db(both APIS will need to be considered)
 
 app = Flask(__name__)
 
@@ -35,22 +37,17 @@ def show_index():
 def search_db():
     """Query that searches the Database"""
 
-    # TODO: Account for so, so many edge cases.
-    # TODO: Create search results tempalate instead of redirecting to one page
-
     search = request.form.get("search")
     subquery = db.session.query(Label.label_id).filter(Label.label.ilike('%' + search + '%')).subquery()
-    artworks = db.session.query(Art).join(SubjectMatter).join(LabelArt).filter(SubjectMatter.category.ilike('%' + search + '%') | Art.title.ilike('%' + search + '%') | LabelArt.label_id.in_(subquery)).all()
+    artworks = db.session.query(Art).join(SubjectMatter).join(LabelArt).join(ArtType).join(ArtMovement).filter(SubjectMatter.category.ilike('%' + search + '%') | Art.title.ilike('%' + search + '%') | LabelArt.label_id.in_(subquery) | ArtType.art_type.ilike('%' + search + '%') | ArtMovement.movement_name.ilike('%' + search + '%')).all()
     artists = Artist.query.filter(Artist.primary_name.ilike('%' + search + '%')).all()
     museums = Collection.query.filter(Collection.name.ilike('%' + search + '%') | Collection.location.ilike('%' + search + '%')).all()
-    labels = Label.query.filter(Label.label.ilike('%' + search + '%')).all()
-    # print labels
 
-    if artworks or artists or museums or labels:
+    if artworks or artists or museums:
         return render_template("results.html", search=search, artworks=artworks,
-                               artists=artists, museums=museums, labels=labels)
+                               artists=artists, museums=museums)
     else:
-        flash("I'm sorry, that term has not been added to the database. Please search again.")
+        flash("I'm sorry, that term has not yet been added to the database. Please try again.")
         return redirect("/")
 
 
@@ -173,25 +170,6 @@ def get_info():
 
         fav_art_dict['favorites'][key].append(art_info)
         # then for each art_info box created, append that to the empty value list for the lat/long key
-
-# _____________________________________________________________________________________________________#
-#######Orignal Code with fav_art_dict having a list as a value instead of a dictionary##################
-
-    # fav_art_dict = {'favorites': []}
-    # # empty dictionary fav_art contains a list for it's values
-
-    # for art in fav_arts:
-    #     # loop through list of artworks in the fav_arts query list
-    #     art_info = {'title': art.title,
-    #                 'collection': art.collection.name,
-    #                 'lat': art.collection.lat,
-    #                 'lng': art.collection.lng}
-    #     # for each artwork create an art_info variable with a dictionary as it's value
-    #     # inside that dictionary have a string as a keyword and info from the database and the value
-
-    #     fav_art_dict['favorites'].append(art_info)
-    #     # for each art_info variable created, append it to the value list for the 'favorites' dict
-# _____________________________________________________________________________________________________#
 
     return jsonify(fav_art_dict)
     # jsonify the favorites dict to send to the JS/Client
