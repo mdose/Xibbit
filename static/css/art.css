@@ -1,12 +1,44 @@
+.navbar-default {
+    background-color: #327384;
+    border-color: #327384;
+}
+
+#xibbit{
+    color: #d3cfd1;
+}
+
+.navbar-default .navbar-nav>li>a{
+    color: #d3cfd1;
+}
+
+body, html{
+  height:100%;
+  margin: 0px;
+  background-color: #327384; 
+  color: #29264c;
+}
+
+#background-img {
+  background-image: url(/static/img/Trevi.jpg);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 50px;
+}
+
+/*body {
+    color: white;
+    background-size: cover;
+    max-height: 100%;
+    max-width: 100%;
+    background: url(/static/img/Painting.jpg) no-repeat center;
+}*/
 
 #map {
 height: 600px;
-}
-
-html, body {
-height: 100%;
-margin: 30px;
-padding: 0;
 }
 
 /* fluid 5 columns */
@@ -14,3 +46,4 @@ padding: 0;
 .grid-item { width: 20%; }
 /* 2 columns */
 .grid-item--width2 { width: 40%; }
+

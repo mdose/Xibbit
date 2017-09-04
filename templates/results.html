@@ -2,40 +2,32 @@
 {% block content %}
 <center>
   <h2> Search Results for "{{ search }}": </h2>
-  {% if artworks %}
-  <div>
+    {% if artworks %}
+      <div>
         <h4>Artworks:</h4>      
         <br>
-    
-    <div class="grid">      
-
+          <div class="grid">      
           <div class="grid-sizer" style="width:100%;"></div>
           <div class="grid-item" style="width:100%;">
-          {% for art in artworks %}
-
-
-            <a href="/artworks/{{ art.art_id }}"> 
-              <div  style="display:inline-block; margin: 5px; background-color:white;">
-                <img src="{{ art.image}}" height="200" padding="10px"><br>
-              <span>
-                {{ art.title }} by 
-                {% for artist in art.artists %}
-                  {% if artist.secondary_name == None %}
-                    {{ artist.primary_name }}
-                  {% else %}
-                    {{artist.primary_name}} {{artist.secondary_name}}
-                  {% endif %}
-                {% endfor %}
-              </span>
-              </div>
-              
-              
-            </a>
-          
-
-          {% endfor %}
+            {% for art in artworks %}
+              <a href="/artworks/{{ art.art_id }}"> 
+                <div  style="display:inline-block; margin: 5px; background-color:white;">
+                  <img src="{{ art.image}}" height="200" padding="10px"><br>
+                <span>
+                  {{ art.title }} by 
+                  {% for artist in art.artists %}
+                    {% if artist.secondary_name == None %}
+                      {{ artist.primary_name }}
+                    {% else %}
+                      {{artist.primary_name}} {{artist.secondary_name}}
+                    {% endif %}
+                  {% endfor %}
+                </span>
+                </div>
+              </a>
+            {% endfor %}
           </div>
-          <div class="grid-item grid-item--width2"></div> 
+        <div class="grid-item grid-item--width2"></div> 
         </div>
     </div>
   {% endif %}
