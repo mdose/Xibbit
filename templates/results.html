@@ -11,9 +11,9 @@
           <div class="grid-item" style="width:100%;">
             {% for art in artworks %}
               <a href="/artworks/{{ art.art_id }}"> 
-                <div  style="display:inline-block; margin: 5px; background-color:white;">
-                  <img src="{{ art.image}}" height="200" padding="10px"><br>
-                <span>
+                <div  style="display:inline-table; margin: 5px; background-color:white;">
+                  <img src="{{ art.image}}" height="300" padding="10px"><br>
+                <span style="display:table-caption; caption-side:bottom;">
                   {{ art.title }} by 
                   {% for artist in art.artists %}
                     {% if artist.secondary_name == None %}

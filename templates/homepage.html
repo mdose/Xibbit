@@ -2,6 +2,9 @@
 {% extends 'base.html' %}
 {% block content %}
 <div id="background-img" class="container">
+<div class="container-fluid"> 
+<div class="row">
+<div id="text-row" class=" col-xs-offset-3 col-xs-6 transbox">
 <center>
 <h1> Welcome to Xibbit!<h1>
 <form action="/results", method="POST">
@@ -10,9 +13,13 @@
     <input type="submit" name="search_button" value="Search">
 </h4>
 <br>
-<h5>The IMDB for Art. Find. Favorite. Visit. </h5>
-</form>
+<p>Find. Favorite. Visit.</p>
+<br>
 </center>
+</form>
+</div>
+</div>
+</div>
 </div>
      
 {% endblock %}

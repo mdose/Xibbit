@@ -3,30 +3,47 @@
     border-color: #327384;
 }
 
-#xibbit{
+#xibbit {
     color: #d3cfd1;
 }
 
-.navbar-default .navbar-nav>li>a{
+.navbar-default .navbar-nav>li>a {
     color: #d3cfd1;
+}
+
+.skinny-form {
+    margin: auto;
+    width: 40%;
+}
+
+p {
+    font-size: 24px;
 }
 
 body, html{
-  height:100%;
-  margin: 0px;
-  background-color: #327384; 
-  color: #29264c;
+    height:100%;
+    margin-top: 50px;
+    background-color: #eaf7f9; 
+    color: #29264c;
+}
+
+div.transbox {
+    margin-top: 25px; 
+    background-color: rgba(234, 234, 216,.7);
+    border: 1px rgba(234, 234, 216,.5);
+    /*pacity: 0.6;*/
+    /*filter: alpha(opacity=60); /* For IE8 and earlier **/
 }
 
 #background-img {
-  background-image: url(/static/img/Trevi.jpg);
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 50px;
+    background-image: url(/static/img/Trevi.jpg);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 50px;
 }
 
 /*body {
@@ -38,7 +55,7 @@ body, html{
 }*/
 
 #map {
-height: 600px;
+    height: 600px;
 }
 
 /* fluid 5 columns */
