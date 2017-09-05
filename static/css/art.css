@@ -51,7 +51,7 @@ body {
 }
 
 body#background-img {
-    background-image: url(/static/img/Trevi.jpg);
+    background-image: url(/static/img/Trevi-xsmall.jpg);
     background-size: cover;
 }
 
@@ -62,6 +62,10 @@ div.transbox {
     padding-bottom: 25px;
     /*pacity: 0.6;*/
     /*filter: alpha(opacity=60); /* For IE8 and earlier **/
+}
+
+.alert{
+    margin-top: 10px;
 }
 
 /*body {
@@ -76,9 +80,25 @@ div.transbox {
     height: 600px;
 }
 
-/* fluid 5 columns */
-.grid-sizer,
-.grid-item { width: 20%; }
-/* 2 columns */
-.grid-item--width2 { width: 40%; }
-
+.grid-item {
+    width: 275px;
+    margin-bottom: 10px;
+    background-color: rgba(50, 115, 132, 0.2);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.grid-item img {
+    width: 275px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.grid-item a {
+    color: #29264c;
+}
+.grid-item a:hover {
+    text-decoration: none;
+}
+.grid-item .caption {
+    padding: 5px 7px 9px 7px;
+    text-align: center;
+}

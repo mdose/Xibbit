@@ -44,7 +44,7 @@
 
         <ul class="nav navbar-nav navbar-right">
           {% if session.get('current_user') %}
-            <li class="active"><a href="/users/{{ session.get('current_user') }}">Profile <span class="sr-only">(current)</span></a></li>
+            <li><a href="/users/{{ session.get('current_user') }}">Profile <span class="sr-only">(current)</span></a></li>
             <li><a href="/logout">Logout</a></li>
           {% else %}
             <li><a href="/register">Sign Up</a></li>

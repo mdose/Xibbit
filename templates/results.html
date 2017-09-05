@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<center>
-  <h2> Search Results for "{{ search }}": </h2>
-    {% if artworks %}
-      <div>
-        <h4>Artworks:</h4>      
-        <br>
-          <div class="grid">      
-          <div class="grid-sizer" style="width:100%;"></div>
-          <div class="grid-item" style="width:100%;">
-            {% for art in artworks %}
-              <a href="/artworks/{{ art.art_id }}"> 
-                <div  style="display:inline-table; margin: 5px; background-color:white;">
-                  <img src="{{ art.image}}" height="300" padding="10px"><br>
-                <span style="display:table-caption; caption-side:bottom;">
+<h2> Search Results for "{{ search }}": </h2>
+  {% if artworks %}
+    <div>
+      <h4>Artworks:</h4>      
+      <br>
+        <div class="grid">      
+        <!-- <div class="grid-sizer" style="width:100%;"></div> -->
+        {% for art in artworks %}
+          <div class="grid-item">
+            <a href="/artworks/{{ art.art_id }}"> 
+              <!-- <div style="display:inline-table; margin: 5px; background-color:white;"> -->
+                <img src="{{ art.image}}" class="img-rounded">
+                <div class="caption">
                   {{ art.title }} by 
                   {% for artist in art.artists %}
                     {% if artist.secondary_name == None %}
@@ -22,48 +21,47 @@
                       {{artist.primary_name}} {{artist.secondary_name}}
                     {% endif %}
                   {% endfor %}
-                </span>
                 </div>
-              </a>
-            {% endfor %}
+              <!-- </div> -->
+            </a>
           </div>
-        <div class="grid-item grid-item--width2"></div> 
-        </div>
-    </div>
-  {% endif %}
-
-  {% if artists %}
-    <div>
-      <h4>Artists:</h4> 
-        {% for artist in artists %}
-          <ul>
-            <a href="/artists/{{ artist.artist_id }}"> 
-              {% if artist.secondary_name == None %}
-                {{ artist.primary_name }}
-              {% else %}
-                {{artist.primary_name}} {{artist.secondary_name}}
-              {% endif %}
-            </a>
-          </ul>
         {% endfor %}
-    </div>
-  {% endif %}
+      <div class="grid-item grid-item--width2"></div> 
+      </div>
+  </div>
+{% endif %}
 
-  {% if museums %}
-    <div>
-      <h4>Museums:</h4> 
-        {% for museum in museums %}
-          <ul>
-            <a href="/collections/{{ museum.collection_id }}"> 
-              {{ museum.name }}, {{ museum.location }}
-            </a>
-          </ul>
-        {% endfor %}
-    </div>
-  {% endif %}
+{% if artists %}
+  <div>
+    <h4>Artists:</h4> 
+      {% for artist in artists %}
+        <ul>
+          <a href="/artists/{{ artist.artist_id }}"> 
+            {% if artist.secondary_name == None %}
+              {{ artist.primary_name }}
+            {% else %}
+              {{artist.primary_name}} {{artist.secondary_name}}
+            {% endif %}
+          </a>
+        </ul>
+      {% endfor %}
+  </div>
+{% endif %}
 
-</center>
+{% if museums %}
+  <div>
+    <h4>Museums:</h4> 
+      {% for museum in museums %}
+        <ul>
+          <a href="/collections/{{ museum.collection_id }}"> 
+            {{ museum.name }}, {{ museum.location }}
+          </a>
+        </ul>
+      {% endfor %}
+  </div>
+{% endif %}
+
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script src="/static/js/masonry.js"></script>
-<!-- <script src="/path/to/masonry.pkgd.min.js"></script> -->
 {% endblock %}
