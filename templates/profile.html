@@ -5,64 +5,66 @@
 
 {% endblock %}
 {% block content %}
-<center>
-  <h2> Profile: {{ user.username }}</h2>
-
-  <div class="container">
+<div class="row">
+<h2 id="yester-font" class=" col-xs-2"> Profile: </h2> 
     <div>
-      Username: {{ user.username }}
-        <br> 
-      Email: {{ user.email }}
-        <br>
-      <!-- Password -->
-      <!-- <br> -->
-      <!-- Image -->
-    </div>
-
     <br>
-    <div id="map"></div>
-
-    <div class="row">
-      <div class="col-xs-4">
-        <br> 
-          <h4> Favorite Artworks:</h4> 
-          <br>
-            {% for art in user.artworks %}
-              <ul>
-                <a href="/artworks/{{ art.art_id }}"> {{ art.title }}</a>
-              </ul>
-            {% endfor %}
-          <br>
-      </div>
-
-      <div class="col-xs-4">
-        <br>
-          <h4>Favorite Artists:</h4>
-          <br>
-            {% for artist in user.artists %}
-              <ul>
-                <a href="/artists/{{ artist.artist_id }}"> {{ artist.primary_name }} {{ artist.secondary_name }}</a>
-              </ul>
-            {% endfor %}
-          <br>
-      </div>
-
-      <div class="col-xs-4">
-        <br>
-          <h4>Favorite Museums:</h4>
-<!--           <br>
-          <strong>(or Private Collections):</strong> -->
-          <br>
-            {% for collection in user.collections %}
-              <ul>
-                <a href="/collections/{{ collection.collection_id }}"> {{ collection.name }}</a>
-              </ul>
-            {% endfor %}
-          <br>
-      </div>
+    <b id="profile-font">Username:</b> {{ user.username }}
+    <br>
+    <b id="profile-font">Email:</b> {{ user.email }}
     </div>
+  <!-- Password -->
+  <!-- <br> -->
+  <!-- Image -->
+</div>
+<div class="row">  
+  <div class="col-xs-4">
+    <br> 
+      <h4 id="yester-font"> Favorite Artworks:</h4> 
+      <br>
+        {% for art in user.artworks %}
+          <ul>
+            <a href="/artworks/{{ art.art_id }}"> {{ art.title }}</a>
+          </ul>
+        {% endfor %}
+      <br>
   </div>
-</center>
+  <div class="col-xs-offset-1 col-xs-6" id="map"></div>
+</div>
+
+<div class="row">
+  <div class="col-xs-4">
+    <br>
+      <h4 id="yester-font">Favorite Museums:</h4>
+<!--           <br>
+      <strong>(or Private Collections):</strong> -->
+      <br>
+        {% for collection in user.collections %}
+          <ul>
+            <a href="/collections/{{ collection.collection_id }}"> {{ collection.name }}</a>
+          </ul>
+        {% endfor %}
+      <br>
+  </div>
+</div>
+
+<div class="row"> 
+  <div class="col-xs-4">
+    <br>
+      <h4 id="yester-font">Favorite Artists:</h4>
+      <br>
+        {% for artist in user.artists %}
+          <ul>
+            <a href="/artists/{{ artist.artist_id }}"> {{ artist.primary_name }} {{ artist.secondary_name }}</a>
+          </ul>
+        {% endfor %}
+      <br>
+  </div>
+</div>
+
+<div id="bottom"></div>
+
+  
 
 <script src="/static/js/favoriteMaps.js"></script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>

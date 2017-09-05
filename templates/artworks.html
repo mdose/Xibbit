@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <h2 class="title"><center> {{ art.title }} </center></h2>
+    <h2 class="title" id="yester-font"><center> {{ art.title }} </center></h2>
 
     <div class="container-fluid">
       <div class="row">
-        <center><img src="{{ art.image }}" height="400" padding="10px" class="img-rounded"></center>
+        <center><img src="{{ art.image }}" height="350" padding="10px" class="img-rounded"></center>
         <br>
         {% if session.get('current_user') %}
         <center>
@@ -85,10 +85,10 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div id="bottom" class="container-fluid">
       <div class="row">
         <br>
-        <center><b>Description:</b> {{ art.description }}</center>
+        <b>Description:</b> {{ art.description }}
       </div>
     </div>
 

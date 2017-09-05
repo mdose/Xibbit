@@ -33,11 +33,11 @@ def show_index():
     return render_template("homepage.html", background_img=True)
 
 
-@app.route('/results', methods=["POST"])
+@app.route('/results', methods=["GET"])
 def search_db():
     """Query that searches the Database"""
 
-    search = request.form.get("search")
+    search = request.args.get("search")
     subquery = db.session.query(Label.label_id).filter(Label.label.ilike('%' + search + '%')).subquery()
     artworks = db.session.query(Art).join(SubjectMatter).join(LabelArt).join(ArtType).join(ArtMovement).filter(SubjectMatter.category.ilike('%' + search + '%') | Art.title.ilike('%' + search + '%') | LabelArt.label_id.in_(subquery) | ArtType.art_type.ilike('%' + search + '%') | ArtMovement.movement_name.ilike('%' + search + '%')).all()
     artists = Artist.query.filter(Artist.primary_name.ilike('%' + search + '%')).all()

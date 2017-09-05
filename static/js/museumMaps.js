@@ -2,7 +2,7 @@
 
 function initMap() {
     var mapData = $('#map_data').data();
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('museum-map'), {
         center: mapData,
         zoom: 13
     });

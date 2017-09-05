@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <h2 class="artist-name">
+    <h2 id="yester-font" class="artist-name">
       <center> 
         {% if artist.secondary_name == None %}
           {{ artist.primary_name }}
@@ -23,8 +23,8 @@
           <br>
         </center>
         {% else %}
-        <center><img src="{{ artist.image_url }}" height="400" padding="10px" class="img-rounded"></center>
-        <center><p> {{artist.image_caption }} </p></center>
+        <center><img src="{{ artist.image_url }}" height="350" padding="10px" class="img-rounded"></center>
+        <center><p id="artist-caption"> {{artist.image_caption }} </p></center>
         {% endif %}
       </div>
 
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div id="bottom" class="container-fluid">
       <div class="row">
         <br>
         <center><b>Bio:</b> {{ artist.bio }}</center>

@@ -26,6 +26,26 @@
     text-shadow: 2px 1px 9px rgba(0, 0, 0, 0.8);
 }
 
+#yester-font{
+    color: #29264c;
+    font-family: 'Yesteryear', cursive;
+    font-size: 36px;
+    font-weight: 400;
+}
+
+#profile-font{
+    color: #29264c;
+}
+
+#bottom-profile-row{
+    margin-top: 25px;
+}
+
+#bottom{
+    padding-bottom: 50px; 
+}
+
+
 .navbar-default .navbar-nav>li>a {
     /*color: #d3cfd1;*/
     color: white;
@@ -38,6 +58,10 @@
 
 p {
     font-size: 24px;
+}
+
+#artist-caption{
+    font-size: 14px
 }
 
 body, html{
@@ -76,8 +100,19 @@ div.transbox {
     background: url(/static/img/Painting.jpg) no-repeat center;
 }*/
 
+.art{
+    list-style-type: none;
+}
+
 #map {
-    height: 600px;
+    height: 450px;
+    width: 650px;
+    margin-top: -45px;
+}
+
+#museum-map{
+    height: 250px;
+    width: 650px;
 }
 
 .grid-item {

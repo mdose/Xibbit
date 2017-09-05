@@ -5,32 +5,36 @@
 
 {% endblock %}
 {% block content %}
-
-    <h2 class="museum-name">
+  <div>
+    <h2 id="yester-font" class="museum-name">
       <center> 
         {{ collection.name }}
       </center>
     </h2>
+    <br>
+  </div>
 
-    <div class="container-fluid">
-      <div class="row">
-        <center><img src="{{ collection.image_url }}" height="400" padding="10px" class="img-rounded"></center>
-      </div>
+      <div id="bottom" class="row">
+        <div class="col-xs-4">
+        <img src="{{ collection.image_url }}" width="400" padding="10px" class="img-rounded">
+      
+        <div> 
+          {% if session.get('current_user') %}       
+          <br>
+            <button class="col-xs-offset-5" type="button" id="favorite-collection-btn" class="btn btn-default btn-md" style="text-align:right">
+              {% if is_favorited %}
+                <span class="glyphicon glyphicon-star" id="favorite"></span> Favorite 
+              {% else %}
+                <span class="glyphicon glyphicon-star-empty" id="favorite"></span> Favorite
+              {% endif %}
+            </button>
+          {% endif %}
+        </div>
+        </div>
+        <div class="col-xs-offset-1 col-xs-6" id="museum-map"></div>
+    </div>
+    
 
-      <div> 
-        {% if session.get('current_user') %}       
-        <br>
-        <center>
-          <button type="button" id="favorite-collection-btn" class="btn btn-default btn-md" style="text-align:right">
-            {% if is_favorited %}
-              <span class="glyphicon glyphicon-star" id="favorite"></span> Favorite 
-            {% else %}
-              <span class="glyphicon glyphicon-star-empty" id="favorite"></span> Favorite
-            {% endif %}
-          </button>
-        </center>
-        {% endif %}
-      </div>
       
       <div class="row">
         <div class="col-xs-offset-3 col-xs-4">
@@ -60,8 +64,7 @@
           <br>
         </div>
       </div>
-
-      <div id="map" class="indivial-museums"></div>
+      
       <span id="map_data" data-lat="{{ collection.lat }}" data-lng="{{ collection.lng }}"></span>
       <span id="map_title" data-title="{{ collection.name }}"></span>
     </div> 
