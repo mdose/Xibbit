@@ -1,25 +1,22 @@
 
 {% extends 'base.html' %}
 {% block content %}
-<div id="background-img" class="container">
-<div class="container-fluid"> 
+<!-- <div id="background-img" class="container"> -->
+<!-- <div class="container-fluid">  -->
 <div class="row">
-<div id="text-row" class=" col-xs-offset-3 col-xs-6 transbox">
-<center>
-<h1> Welcome to Xibbit!<h1>
-<form action="/results", method="POST">
-<h4>Search for Art:
-    <input type="search" name="search">
-    <input type="submit" name="search_button" value="Search">
-</h4>
-<br>
-<p>Find. Favorite. Visit.</p>
-<br>
-</center>
-</form>
+    <div id="text-row" class="col-xs-offset-3 col-xs-6 transbox">
+        <h1 class="text-center">Welcome to <span id="xibbit2">Xibbit</span><h1>
+        <form action="/results", method="POST" class="form-inline text-center">
+            <input type="text" class="form-control" name="search" placeholder="Search for Art">
+            <button type="submit" class="btn btn-default">Search</button>
+        </form>
+    </div>
 </div>
+
+<div class="row">
+    <h2 class="text-center" id="tagline">Find. Favorite. Visit.</h2>
 </div>
-</div>
-</div>
+<!-- </div> -->
+<!-- </div> -->
      
 {% endblock %}

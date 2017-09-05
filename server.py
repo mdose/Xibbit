@@ -30,7 +30,7 @@ app.jinja_env.auto_reload = True
 def show_index():
     """Homepage."""
 
-    return render_template("homepage.html")
+    return render_template("homepage.html", background_img=True)
 
 
 @app.route('/results', methods=["POST"])
