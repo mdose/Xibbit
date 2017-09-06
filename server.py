@@ -319,7 +319,7 @@ def show_collection(collection_id):
 
 if __name__ == "__main__":
     # debug=True here, since it has to be True at when the DebugToolbarExtension is invoked
-    app.debug = True
+    app.debug = False
     app.jinja_env.auto_reload = app.debug  # make sure templates, etc. are not cached in debug mode
 
     connect_to_db(app)
