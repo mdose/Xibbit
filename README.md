@@ -22,6 +22,6 @@ After cloning or forking this repo, perform the following steps:
 
 1. Install and activate a virtual environment on Vagrant
 2. pip install -r requirements.txt
-3. Run the program:
+3. Run the program
 4. python server.py
 5. Navigate to http://localhost:5000/
