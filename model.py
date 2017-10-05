@@ -326,7 +326,7 @@ class LabelArt(db.Model):
 # Helper functions
 
 
-def connect_to_db(app, database='postgres:///masterpieces'):
+def connect_to_db(app, database='postgres://megan@localhost/masterpieces'):
     """Connect the database to our Flask app."""
 
     # Configure to use our database.
