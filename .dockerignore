@@ -1,0 +1,6 @@
+env/
+*.pyc
+.DS_Store
+secrets/
+node_modules/
+.git
