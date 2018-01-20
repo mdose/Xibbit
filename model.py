@@ -1,5 +1,6 @@
 """Models and database functions for masterpieces db."""
 
+import os
 from flask_sqlalchemy import SQLAlchemy
 
 # Here's where we create the idea of our database. We're getting this through
@@ -326,8 +327,14 @@ class LabelArt(db.Model):
 # Helper functions
 
 
-def connect_to_db(app, database='postgres://megan@localhost/masterpieces'):
+def connect_to_db(app):
     """Connect the database to our Flask app."""
+
+    # read postgres db url from environment but fallback to default if empty
+    if 'DATABASE_URL' in os.environ:
+        database = os.environ['DATABASE_URL']
+    else:
+        database = 'postgres://megan@localhost/masterpieces'
 
     # Configure to use our database.
     app.config['SQLALCHEMY_DATABASE_URI'] = database
