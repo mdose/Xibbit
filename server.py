@@ -81,7 +81,7 @@ def process_registration_form():
         user = User.query.filter(User.email == email).first()
         session['current_user'] = new_user.user_id
         flash('You were successfully registered and logged in.')
-        return redirect("/users/" + str(user.user_id))
+        return redirect("/profile")
 
 
 @app.route("/login", methods=["GET"])
@@ -106,7 +106,7 @@ def process_login_form():
         session['current_user'] = user.user_id
         flash("Logged in as %s" % user.username)
         # return render_template("profile.html", user=user)
-        return redirect("/users/" + str(user.user_id))
+        return redirect("/profile")
 
     else:
         flash("Incorrect user or password.")
@@ -122,13 +122,11 @@ def show_logout():
     return render_template("logout.html")
 
 
-@app.route("/users/<user_id>")
-def show_user(user_id):
+@app.route("/profile")
+def show_user():
     """Generates the profile page for each user in db."""
 
-    # FIXME: Need to add extra security so that no one can access someone else's profile
-    # by just changing the user_id num in the URL!!!!!
-
+    user_id = session['current_user']
     user = User.query.filter_by(user_id=user_id).first()
     if user is None:
         flash("User %s not found." % user_id)
