@@ -15,6 +15,7 @@ from model import connect_to_db, db
 from server import app
 import io
 import os
+from passlib.hash import pbkdf2_sha256
 # import VisionAPIcredentials.json
 
 # Imports the Google Cloud client library
@@ -260,8 +261,10 @@ def load_users():
         row = row.rstrip("\n").strip(chr(13))
         row = row.split("\t")
         user_id, email, password, username = row
+        hashed = pbkdf2_sha256.hash(password)
+        del password
 
-        user = User(user_id=user_id, email=email, password=password,
+        user = User(user_id=user_id, email=email, password=hashed,
                     username=username)
         db.session.add(user)
 

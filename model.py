@@ -103,7 +103,7 @@ class User(db.Model):
                         autoincrement=True,
                         nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(100), nullable=False)
     # For 2.0 -> image_url = db.Column(db.String(500), nullable=True)
 

@@ -5,6 +5,8 @@ from jinja2 import StrictUndefined
 from flask import (Flask, render_template, redirect, request, flash, session, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
 
+from passlib.hash import pbkdf2_sha256
+
 from model import (Art, Artist, User, ArtType, Collection, ArtMovement,
                    SubjectMatter, ArtistArt, UserArt, UserArtist,
                    UserCollection, Label, LabelArt, connect_to_db, db)
@@ -66,6 +68,9 @@ def process_registration_form():
     password = request.form.get("password")
     username = request.form.get("username")
 
+    hashed = pbkdf2_sha256.hash(password)
+    del password
+
 # Maybe 2.0: Improve form validations wtih regular expressions
     if User.query.filter(User.email == email).first():
         flash("You are already registered, please log in.")
@@ -75,7 +80,7 @@ def process_registration_form():
         flash("Sorry, that username is already taken. Please chose a different username.")
         return redirect("/register")
     else:
-        new_user = User(email=email, password=password, username=username)
+        new_user = User(email=email, password=hashed, username=username)
         db.session.add(new_user)
         db.session.commit()
         user = User.query.filter(User.email == email).first()
@@ -97,10 +102,11 @@ def process_login_form():
 
 # Maybe 2.0: Improve form validations wtih regular expressions
     email = request.form['email']
-    password = request.form['password']
+    attempt = request.form['password']
     user = User.query.filter(User.email == email).first()
 
-    if user and user.email == email and user.password == password:
+# user.password is the stored hashed pwd in the db (no passwords stored in plain text)
+    if user and pbkdf2_sha256.verify(attempt, user.password):
         # Posssible instead of "current_user" to directly get user_id and email from
         # session dict (Refactoring?). Would also have to change/reverse it on logout.
         session['current_user'] = user.user_id
