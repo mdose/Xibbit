@@ -34,6 +34,12 @@ def show_index():
 
     return render_template("homepage.html", background_img=True)
 
+@app.route('/about', methods=["GET"])
+def show_about():
+    """About the app."""
+
+    return render_template("about.html")
+
 
 @app.route('/results', methods=["GET"])
 def search_db():
