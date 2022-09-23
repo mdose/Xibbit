@@ -24,7 +24,7 @@ Jinja2==2.9.6
 MarkupSafe==1.0
 passlib==1.7.1
 ply==3.8
-protobuf==3.4.0
+protobuf==3.18.3
 psycopg2==2.7.3
 pyasn1==0.3.3
 pyasn1-modules==0.1.1
